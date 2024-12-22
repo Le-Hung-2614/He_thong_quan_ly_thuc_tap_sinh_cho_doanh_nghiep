@@ -78,10 +78,10 @@ WSGI_APPLICATION = 'site1.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django-app-db',
+        'NAME': 'db',
         'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'db',  # this should match the service name in docker-compose.yml
+        'PASSWORD': 'root',
+        'HOST': 'localhost',
         'PORT': '3306',
     }
 }
