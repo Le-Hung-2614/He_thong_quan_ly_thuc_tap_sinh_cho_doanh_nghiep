@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bảo mật và Quyền hạn</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Arial', sans-serif;
+    }
+    .card {
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+    .card-header {
+      background-color: #007bff;
+      color: white;
+      border-radius: 10px 10px 0 0;
+      padding: 15px;
+    }
+    .card-title {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+    .btn-success {
+      background-color: #28a745;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    .btn-success:hover {
+      background-color: #218838;
+    }
+    .btn-warning {
+      background-color: #ffc107;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    .btn-warning:hover {
+      background-color: #e0a800;
+    }
+    .form-control {
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      padding: 10px;
+    }
+    .form-control:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+    .form-label {
+      font-weight: bold;
+      color: #333;
+    }
+    .form-check-label {
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <!-- Quản lý vai trò và quyền hạn -->
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title"><i class="fas fa-users-cog"></i> Quản lý vai trò và quyền hạn</h5>
+      </div>
+      <div class="card-body">
+        <div class="mb-3">
+          <label for="roleName" class="form-label">Tên vai trò:</label>
+          <input type="text" class="form-control" id="roleName" placeholder="Nhập tên vai trò">
+        </div>
+        <div class="mb-3">
+          <label for="permissions" class="form-label">Quyền hạn:</label>
+          <select class="form-select" id="permissions" multiple>
+            <option value="view">Xem dữ liệu</option>
+            <option value="edit">Chỉnh sửa dữ liệu</option>
+            <option value="delete">Xóa dữ liệu</option>
+            <option value="manage_users">Quản lý người dùng</option>
+          </select>
+        </div>
+        <button class="btn btn-success"><i class="fas fa-save"></i> Lưu thay đổi</button>
+        <button class="btn btn-warning ms-2"><i class="fas fa-undo"></i> Hủy</button>
+      </div>
+    </div>
+
+    <!-- Xác thực hai yếu tố (2FA) -->
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title"><i class="fas fa-shield-alt"></i> Xác thực hai yếu tố (2FA)</h5>
+      </div>
+      <div class="card-body">
+        <div class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" id="enable2FA">
+          <label class="form-check-label" for="enable2FA">Bật xác thực hai yếu tố</label>
+        </div>
+        <div class="mb-3">
+          <label for="2faMethod" class="form-label">Phương thức xác thực:</label>
+          <select class="form-select" id="2faMethod">
+            <option value="google_authenticator">Google Authenticator</option>
+            <option value="sms">SMS</option>
+            <option value="email">Email</option>
+          </select>
+        </div>
+        <button class="btn btn-success"><i class="fas fa-save"></i> Lưu thay đổi</button>
+        <button class="btn btn-warning ms-2"><i class="fas fa-undo"></i> Hủy</button>
+      </div>
+    </div>
+
+    <!-- Quản lý phiên đăng nhập -->
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title"><i class="fas fa-user-lock"></i> Quản lý phiên đăng nhập</h5>
+      </div>
+      <div class="card-body">
+        <div class="mb-3">
+          <label for="sessionTimeout" class="form-label">Thời gian đăng nhập (phút):</label>
+          <input type="number" class="form-control" id="sessionTimeout" placeholder="Ví dụ: 30">
+        </div>
+        <div class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" id="forceLogout">
+          <label class="form-check-label" for="forceLogout">Đăng xuất từ xa</label>
+        </div>
+        <button class="btn btn-success"><i class="fas fa-save"></i> Lưu thay đổi</button>
+        <button class="btn btn-warning ms-2"><i class="fas fa-undo"></i> Hủy</button>
+      </div>
+    </div>
+
+    <!-- Quản lý bảo mật dữ liệu -->
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title"><i class="fas fa-database"></i> Quản lý bảo mật dữ liệu</h5>
+      </div>
+      <div class="card-body">
+        <div class="mb-3">
+          <label for="dataEncryption" class="form-label">Mã hóa dữ liệu:</label>
+          <select class="form-select" id="dataEncryption">
+            <option value="enabled">Bật</option>
+            <option value="disabled">Tắt</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="backupFrequency" class="form-label">Tần suất sao lưu:</label>
+          <select class="form-select" id="backupFrequency">
+            <option value="daily">Hàng ngày</option>
+            <option value="weekly">Hàng tuần</option>
+            <option value="monthly">Hàng tháng</option>
+          </select>
+        </div>
+        <button class="btn btn-success"><i class="fas fa-save"></i> Lưu thay đổi</button>
+        <button class="btn btn-warning ms-2"><i class="fas fa-undo"></i> Hủy</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS và dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

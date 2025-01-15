@@ -1,87 +1,161 @@
 {% load static %}
-<nav
-class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-id="layout-navbar">
-<div class="layout-menu-toggle navbar-nav align-items-xl-center me-4 me-xl-0 d-xl-none">
-  <a class="nav-item nav-link px-0 me-xl-6" href="javascript:void(0)">
-    <i class="bx bx-menu bx-md"></i>
-  </a>
-</div>
-
-<div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-  <!-- Search -->
-  
-  <!-- /Search -->
-
-  <ul class="navbar-nav flex-row align-items-center ms-auto">
-    <!-- Place this tag where you want the button to render. -->
-    
-
-    <!-- Notification Bell -->
-    <li class="nav-item me-4">
-      <a class="nav-link p-0 position-relative" href="javascript:void(0);">
-        <i class="menu-icon tf-icons bx bx-bell"></i> <!-- Biểu tượng chuông từ thư viện của bạn -->
-        <span class="badge bg-danger rounded-pill position-absolute top-0 start-100 translate-middle">4</span> <!-- Số thông báo -->
+<nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
+    <div class="layout-menu-toggle navbar-nav align-items-xl-center me-4 me-xl-0 d-xl-none">
+      <a class="nav-item nav-link px-0 me-xl-6" href="javascript:void(0)">
+        <i class="bx bx-menu bx-md"></i>
       </a>
-    </li>
+    </div>
 
-    <!-- User -->
-    <li class="nav-item navbar-dropdown dropdown-user dropdown">
-      <a
-        class="nav-link dropdown-toggle hide-arrow p-0"
-        href="javascript:void(0);"
-        data-bs-toggle="dropdown">
-        <div class="avatar avatar-online">
-          <img src=" {%static 'home/assets/img/avatars/bear.png' %}" alt class="w-px-40 h-auto rounded-circle" />
-        </div>
-      </a>
-      <ul class="dropdown-menu dropdown-menu-end">
-        <li>
-          <a class="dropdown-item" href="#">
-            <div class="d-flex">
-              <div class="flex-shrink-0 me-3">
-                <div class="avatar avatar-online">
-                  <img src=" {%static 'home/assets/img/avatars/bear.png' %}" alt class="w-px-40 h-auto rounded-circle" />
+    <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+      <ul class="navbar-nav flex-row align-items-center ms-auto">
+        <!-- Notification Bell -->
+        <li class="nav-item me-2 dropdown">
+          <a class="nav-link p-0 position-relative dropdown" href="javascript:void(0);" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="badge bg-danger rounded-pill position-absolute top-0 start-50 translate-middle">3</span>
+            <i class="menu-icon tf-icons bx bx-bell"></i>
+          </a>
+          <!-- Dropdown Menu for Notifications -->
+          <ul class="dropdown-menu dropdown-menu-end p-2" aria-labelledby="notificationDropdown" style="min-width: 300px; margin-top: 0; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <li>
+              <a class="dropdown-item p-2" href="javascript:void(0);">
+                <div class="d-flex">
+                  <div class="flex-grow-1">
+                    <h6 class="mb-1">Cuộc họp sắp tới</h6>
+                    <small class="text-muted">10:00 AM - Phòng họp A</small>
+                  </div>
                 </div>
-              </div>
-              <div class="flex-grow-1">
-                <h6 class="mb-0">John Doe</h6>
-                <small class="text-muted">Admin</small>
-              </div>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item p-2" href="javascript:void(0);">
+                <div class="d-flex">
+                  <div class="flex-grow-1">
+                    <h6 class="mb-1">Phản hồi từ mentor</h6>
+                    <small class="text-muted">5 phản hồi mới</small>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item p-2" href="javascript:void(0);">
+                <div class="d-flex">
+                  <div class="flex-grow-1">
+                    <h6 class="mb-1">Công việc ưu tiên</h6>
+                    <small class="text-muted">Hoàn thành báo cáo tháng</small>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <div class="dropdown-divider my-1"></div>
+            </li>
+            <li>
+              <a class="dropdown-item text-center p-2" href="javascript:void(0);">Xem tất cả thông báo</a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- User -->
+        <li class="nav-item navbar-dropdown dropdown-user dropdown">
+          <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
+            <div class="avatar avatar-online">
+              <img src="{% static 'home/assets/img/avatars/bear.png' %}" alt class="w-px-40 h-auto rounded-circle" />
             </div>
           </a>
+          <ul class="dropdown-menu dropdown-menu-end" style="border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <li>
+              <a class="dropdown-item" href="#">
+                <div class="d-flex">
+                  <div class="flex-shrink-0 me-3">
+                    <div class="avatar avatar-online">
+                      <img src="{% static 'home/assets/img/avatars/bear.png' %}" alt class="w-px-40 h-auto rounded-circle" />
+                    </div>
+                  </div>
+                  <div class="flex-grow-1">
+                    <h6 class="mb-0">John Doe</h6>
+                    <small class="text-muted">Admin</small>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <div class="dropdown-divider my-1"></div>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">
+                <i class="bx bx-user bx-md me-3"></i><span>My Profile</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">
+                <i class="bx bx-cog bx-md me-3"></i><span>Settings</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">
+                <i class="bx bx-user-plus bx-md me-3"></i><span>Manage Users</span>
+              </a>
+            </li>
+            <li>
+              <div class="dropdown-divider my-1"></div>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">
+                <i class="bx bx-file bx-md me-3"></i><span>Reports</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">
+                <i class="bx bx-help-circle bx-md me-3"></i><span>Help/Support</span>
+              </a>
+            </li>
+            <li>
+              <div class="dropdown-divider my-1"></div>
+            </li>
+            <!-- Dark Mode Toggle -->
+            <li>
+              <a class="dropdown-item" href="javascript:void(0);">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="darkModeToggle">
+                  <label class="form-check-label" for="darkModeToggle">Chế độ tối</label>
+                </div>
+              </a>
+            </li>
+            <li>
+              <div class="dropdown-divider my-1"></div>
+            </li>
+            <li>
+              <a class="dropdown-item text-danger" href="javascript:void(0);">
+                <i class="bx bx-power-off bx-md me-3"></i><span>Log Out</span>
+              </a>
+            </li>
+          </ul>
         </li>
-        <li>
-          <div class="dropdown-divider my-1"></div>
-        </li>
-        <li>
-          <a class="dropdown-item" href="#">
-            <i class="bx bx-user bx-md me-3"></i><span>My Profile</span>
-          </a>
-        </li>
-        <li>
-          <a class="dropdown-item" href="#"> <i class="bx bx-cog bx-md me-3"></i><span>Settings</span> </a>
-        </li>
-        <li>
-          <a class="dropdown-item" href="#">
-            <span class="d-flex align-items-center align-middle">
-              <i class="flex-shrink-0 bx bx-credit-card bx-md me-3"></i
-              ><span class="flex-grow-1 align-middle">Billing Plan</span>
-              <span class="flex-shrink-0 badge rounded-pill bg-danger">4</span>
-            </span>
-          </a>
-        </li>
-        <li>
-          <div class="dropdown-divider my-1"></div>
-        </li>
-        <li>
-          <a class="dropdown-item" href="javascript:void(0);">
-            <i class="bx bx-power-off bx-md me-3"></i><span>Log Out</span>
-          </a>
-        </li>
+        <!--/ User -->
       </ul>
-    </li>
-    <!--/ User -->
-  </ul>
-</div>
-</nav>
+    </div>
+  </nav>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const darkModeToggle = document.getElementById('darkModeToggle');
+      const body = document.body;
+    
+      // Kiểm tra trạng thái chế độ tối từ localStorage
+      if (localStorage.getItem('darkMode') === 'enabled') {
+        body.classList.add('dark-mode');
+        darkModeToggle.checked = true;
+      }
+    
+      // Bắt sự kiện khi công tắc được nhấn
+      darkModeToggle.addEventListener('change', function() {
+        if (this.checked) {
+          body.classList.add('dark-mode');
+          localStorage.setItem('darkMode', 'enabled');
+        } else {
+          body.classList.remove('dark-mode');
+          localStorage.setItem('darkMode', 'disabled');
+        }
+      });
+    });
+  </script>

@@ -1,0 +1,313 @@
+{% load static %}
+<!DOCTYPE html> 
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cấu hình hệ thống</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Arial', sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    body.dark-mode {
+      background-color: #121212;
+      color: #ffffff;
+    }
+    .card {
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .dark-mode .card {
+      background-color: #1e1e1e;
+      color: #ffffff;
+    }
+    .card-header {
+      background-color: #007bff;
+      color: white;
+      border-radius: 10px 10px 0 0;
+      padding: 15px;
+    }
+    .dark-mode .card-header {
+      background-color: #0d6efd;
+    }
+    .btn-success {
+      background-color: #28a745;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    .btn-success:hover {
+      background-color: #218838;
+    }
+    .btn-warning {
+      background-color: #ffc107;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    .btn-warning:hover {
+      background-color: #e0a800;
+    }
+    .form-control {
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      padding: 10px;
+    }
+    .dark-mode .form-control {
+      background-color: #2d2d2d;
+      border-color: #444;
+      color: #ffffff;
+    }
+    .form-control:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+    .form-label {
+      font-weight: bold;
+      color: #333;
+    }
+    .dark-mode .form-label {
+      color: #ffffff;
+    }
+    .form-check-label {
+      color: #555;
+    }
+    .dark-mode .form-check-label {
+      color: #ffffff;
+    }
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .dropdown-menu {
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="content-wrapper">
+    <!-- Content -->
+    <div class="container-xxl flex-grow-1 container-p-y">
+      <!-- Cấu hình vai trò và nhóm người dùng -->
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title"><i class="fas fa-users-cog"></i> Cấu hình vai trò và nhóm người dùng</h5>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label for="customRole" class="form-label">Tạo vai trò tùy chỉnh:</label>
+            <input type="text" class="form-control" id="customRole" placeholder="Nhập tên vai trò">
+          </div>
+          <div class="mb-3">
+            <label for="userGroup" class="form-label">Quản lý nhóm người dùng:</label>
+            <select class="form-select" id="userGroup">
+              <option value="mentor">Nhóm Mentor</option>
+              <option value="intern">Nhóm Thực tập sinh</option>
+            </select>
+          </div>
+          <button class="btn btn-success"><i class="fas fa-save"></i> Lưu thay đổi</button>
+          <button class="btn btn-warning ms-2"><i class="fas fa-undo"></i> Hủy</button>
+        </div>
+      </div>
+
+      <!-- Cấu hình KPI và tiêu chí đánh giá -->
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title"><i class="fas fa-chart-line"></i> Cấu hình KPI và tiêu chí đánh giá</h5>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label for="kpiName" class="form-label">Tên KPI:</label>
+            <input type="text" class="form-control" id="kpiName" placeholder="Nhập tên KPI">
+          </div>
+          <div class="mb-3">
+            <label for="kpiWeight" class="form-label">Trọng số:</label>
+            <input type="number" class="form-control" id="kpiWeight" placeholder="Nhập trọng số">
+          </div>
+          <button class="btn btn-success"><i class="fas fa-plus"></i> Thêm KPI</button>
+          <button class="btn btn-warning ms-2"><i class="fas fa-undo"></i> Hủy</button>
+        </div>
+      </div>
+
+      <!-- Quản lý mẫu tài liệu -->
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title"><i class="fas fa-file-alt"></i> Quản lý mẫu tài liệu</h5>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label for="templateUpload" class="form-label">Tải lên mẫu tài liệu:</label>
+            <input type="file" class="form-control" id="templateUpload">
+          </div>
+          <button class="btn btn-success"><i class="fas fa-download"></i> Xuất file PDF</button>
+          <button class="btn btn-warning ms-2"><i class="fas fa-undo"></i> Hủy</button>
+        </div>
+      </div>
+
+      <!-- Cấu hình lịch làm việc -->
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title"><i class="fas fa-calendar-alt"></i> Cấu hình lịch làm việc</h5>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label for="workingHours" class="form-label">Khung giờ làm việc:</label>
+            <input type="text" class="form-control" id="workingHours" placeholder="Ví dụ: 9:00 - 18:00">
+          </div>
+          <div class="mb-3">
+            <label for="holidays" class="form-label">Ngày nghỉ:</label>
+            <input type="date" class="form-control" id="holidays">
+          </div>
+          <button class="btn btn-success"><i class="fas fa-save"></i> Lưu thay đổi</button>
+          <button class="btn btn-warning ms-2"><i class="fas fa-undo"></i> Hủy</button>
+        </div>
+      </div>
+
+      <!-- Cấu hình dữ liệu hệ thống -->
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title"><i class="fas fa-database"></i> Cấu hình dữ liệu hệ thống</h5>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label for="backup" class="form-label">Sao lưu dữ liệu:</label>
+            <button class="btn btn-secondary" id="backup"><i class="fas fa-save"></i> Tạo bản sao lưu</button>
+          </div>
+          <div class="mb-3">
+            <label for="cloudStorage" class="form-label">Kết nối lưu trữ đám mây:</label>
+            <select class="form-select" id="cloudStorage">
+              <option value="aws">AWS S3</option>
+              <option value="google">Google Drive</option>
+            </select>
+          </div>
+          <button class="btn btn-success"><i class="fas fa-save"></i> Lưu thay đổi</button>
+          <button class="btn btn-warning ms-2"><i class="fas fa-undo"></i> Hủy</button>
+        </div>
+      </div>
+
+      <!-- Cài đặt giao diện -->
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title"><i class="fas fa-palette"></i> Cài đặt giao diện</h5>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label for="logoUpload" class="form-label">Tải lên logo:</label>
+            <input type="file" class="form-control" id="logoUpload">
+          </div>
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="darkMode">
+            <label class="form-check-label" for="darkMode">Bật chế độ tối</label>
+          </div>
+          <button class="btn btn-success" id="saveChanges"><i class="fas fa-save"></i> Lưu thay đổi</button>
+          <button class="btn btn-warning ms-2" id="cancelChanges"><i class="fas fa-undo"></i> Hủy</button>
+        </div>
+      </div>
+
+      <!-- Quản lý phiên làm việc và bảo mật -->
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title"><i class="fas fa-shield-alt"></i> Quản lý phiên làm việc và bảo mật</h5>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label for="sessionTimeout" class="form-label">Thời gian đăng nhập (phút):</label>
+            <input type="number" class="form-control" id="sessionTimeout" placeholder="Ví dụ: 30">
+          </div>
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="forceLogout">
+            <label class="form-check-label" for="forceLogout">Đăng xuất từ xa</label>
+          </div>
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="2fa">
+            <label class="form-check-label" for="2fa">Bật xác thực hai yếu tố (2FA)</label>
+          </div>
+          <button class="btn btn-success"><i class="fas fa-save"></i> Lưu thay đổi</button>
+          <button class="btn btn-warning ms-2"><i class="fas fa-undo"></i> Hủy</button>
+        </div>
+      </div>
+
+      <!-- Thông báo thành công -->
+      <div class="toast" id="successToast">
+        <div class="toast-header">
+          <strong class="me-auto">Thành công</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+        <div class="toast-body">Thay đổi đã được lưu thành công!</div>
+      </div>
+    </div>
+    <!-- / Content -->
+
+    <div class="content-backdrop fade"></div>
+  </div>
+
+  <!-- Bootstrap JS và dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+  <!-- Custom JavaScript -->
+  <script>
+    // Lấy các phần tử DOM cần thiết
+    const darkModeCheckbox = document.getElementById('darkMode');
+    const saveButton = document.getElementById('saveChanges');
+    const cancelButton = document.getElementById('cancelChanges');
+    const menu = document.querySelector('.menu'); // Lấy phần tử menu
+    const navbar = document.querySelector('.navbar'); // Lấy phần tử navbar
+    const footer = document.querySelector('.footer'); // Lấy phần tử footer
+
+    // Hàm áp dụng dark mode
+    function applyDarkMode(isDarkMode) {
+      if (isDarkMode) {
+        document.body.classList.add('dark-mode');
+        if (menu) menu.classList.add('dark-mode');
+        if (navbar) navbar.classList.add('dark-mode');
+        if (footer) footer.classList.add('dark-mode');
+      } else {
+        document.body.classList.remove('dark-mode');
+        if (menu) menu.classList.remove('dark-mode');
+        if (navbar) navbar.classList.remove('dark-mode');
+        if (footer) footer.classList.remove('dark-mode');
+      }
+    }
+
+    // Xử lý sự kiện khi nhấn nút "Lưu thay đổi"
+    saveButton.addEventListener('click', () => {
+      const isDarkMode = darkModeCheckbox.checked;
+      applyDarkMode(isDarkMode);
+      localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled'); // Lưu trạng thái vào localStorage
+      
+    });
+
+    // Xử lý sự kiện khi nhấn nút "Hủy"
+    cancelButton.addEventListener('click', () => {
+      darkModeCheckbox.checked = false; // Bỏ chọn checkbox
+      applyDarkMode(false);
+      localStorage.setItem('darkMode', 'disabled'); // Lưu trạng thái vào localStorage
+      
+    });
+
+    // Kiểm tra trạng thái dark mode khi tải trang
+    document.addEventListener('DOMContentLoaded', () => {
+      const darkModeState = localStorage.getItem('darkMode') || 'disabled';
+      const isDarkMode = darkModeState === 'enabled';
+
+      darkModeCheckbox.checked = isDarkMode;
+      applyDarkMode(isDarkMode);
+    });
+  </script>
+</body>
+</html>

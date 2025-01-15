@@ -47,6 +47,191 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js' %} in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src=" {%static 'home/assets/js/config.js' %}"></script>
+    <style>
+      /* Chế độ sáng mặc định */
+      body {
+        background-color: #ffffff;
+        color: #000000;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      /* Chế độ tối */
+      body.dark-mode {
+        background-color: #121212;
+        color: #ffffff;
+      }
+
+      /* Navbar trong chế độ tối */
+      body.dark-mode .navbar {
+        background-color: #1e1e1e !important;
+        color: #ffffff !important;
+      }
+
+      body.dark-mode .dropdown-menu {
+        background-color: #1e1e1e !important;
+        color: #ffffff !important;
+        border-color: #333333 !important;
+      }
+
+      body.dark-mode .dropdown-item {
+        color: #ffffff !important;
+      }
+
+      body.dark-mode .dropdown-item:hover {
+        background-color: #333333 !important;
+      }
+
+      body.dark-mode .text-muted {
+        color: #b0b0b0 !important;
+      }
+
+      body.dark-mode .form-check-label {
+        color: #ffffff !important;
+      }
+
+      body.dark-mode .bg-navbar-theme {
+        background-color: #1e1e1e !important;
+      }
+
+      body.dark-mode .navbar-nav .nav-link {
+        color: #ffffff !important;
+      }
+
+      body.dark-mode .navbar-nav .nav-link:hover {
+        color: #b0b0b0 !important;
+      }
+
+      /* Footer trong chế độ tối */
+      body.dark-mode .footer {
+        background-color: #1e1e1e !important;
+        color: #ffffff !important;
+      }
+
+      body.dark-mode .footer-link {
+        color: #b0b0b0 !important;
+      }
+
+      body.dark-mode .footer-link:hover {
+        color: #ffffff !important;
+      }
+
+      body.dark-mode .text-body {
+        color: #ffffff !important;
+      }
+
+      body.dark-mode .bg-footer-theme {
+        background-color: #1e1e1e !important;
+      }
+
+      /* Content wrapper trong chế độ tối */
+      body.dark-mode .content-wrapper {
+        background-color: #121212 !important;
+        color: #ffffff !important;
+      }
+
+      /* Layout container trong chế độ tối */
+      body.dark-mode .layout-container {
+        background-color: #121212 !important;
+        color: #ffffff !important;
+      }
+
+      /* Menu trong chế độ tối */
+      body.dark-mode .layout-menu {
+        background-color: #1e1e1e !important;
+        color: #ffffff !important;
+      }
+
+      body.dark-mode .layout-menu .menu-item {
+        color: #ffffff !important;
+      }
+
+      body.dark-mode .layout-menu .menu-item:hover {
+        background-color: #333333 !important;
+      }
+      /* Chế độ tối cho menu */
+      body.dark-mode .menu {
+        background-color: #1e1e1e !important; /* Màu nền tối */
+        color: #ffffff !important; /* Màu chữ trắng */
+      }
+
+      body.dark-mode .menu-item {
+        color: #ffffff !important; /* Màu chữ trắng cho các mục menu */
+      }
+
+      body.dark-mode .menu-item:hover {
+        background-color: #333333 !important; /* Màu nền khi hover */
+      }
+
+      body.dark-mode .menu-link {
+        color: #ffffff !important; /* Màu chữ trắng cho các liên kết menu */
+      }
+
+      body.dark-mode .menu-link:hover {
+        color: #b0b0b0 !important; /* Màu chữ nhạt hơn khi hover */
+      }
+
+      body.dark-mode .app-brand-link {
+        color: #ffffff !important; /* Màu chữ trắng cho logo và tên ứng dụng */
+      }
+
+      body.dark-mode .app-brand-link:hover {
+        color: #b0b0b0 !important; /* Màu chữ nhạt hơn khi hover */
+      }
+
+      body.dark-mode .menu-icon {
+        color: #ffffff !important; /* Màu chữ trắng cho biểu tượng menu */
+      }
+
+      body.dark-mode .menu-icon:hover {
+        color: #b0b0b0 !important; /* Màu chữ nhạt hơn khi hover */
+      }
+      /* Bỏ gạch chân cho các liên kết trong menu */
+      .menu-link {
+        text-decoration: none !important;
+      }
+
+      /* Đảm bảo gạch chân không xuất hiện khi hover */
+      .menu-link:hover {
+        text-decoration: none !important;
+      }
+      body.dark-mode {
+        background-color: #121212;
+        color: #ffffff;
+      }
+  
+      /* Navbar trong chế độ tối */
+      body.dark-mode .navbar {
+        background-color: #1e1e1e !important;
+        color: #ffffff !important;
+      }
+  
+      /* Footer trong chế độ tối */
+      body.dark-mode .footer {
+        background-color: #1e1e1e !important;
+        color: #ffffff !important;
+      }
+  
+      /* Card trong chế độ tối */
+      body.dark-mode .card {
+        background-color: #1e1e1e !important;
+        color: #ffffff !important;
+        border-color: #333333 !important;
+      }
+  
+      /* Text trong chế độ tối */
+      body.dark-mode .text-muted {
+        color: #b0b0b0 !important;
+      }
+  
+      /* Link trong chế độ tối */
+      body.dark-mode a {
+        color: #ffffff !important;
+      }
+  
+      body.dark-mode a:hover {
+        color: #b0b0b0 !important;
+      }
+    </style>
   </head>
 
   <body>

@@ -1,33 +1,64 @@
 <footer class="content-footer footer bg-footer-theme">
-    <div class="container-xxl">
-      <div
-        class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
-        <div class="text-body">
-          ©
-          <script>
-            document.write(new Date().getFullYear());
-          </script>
-          , made with ❤️ by
-          <a href="https://github.com/Hoang-Tung-0801/He_thong_quan_ly_thuc_tap_sinh_cho_doanh_nghiep" target="_blank" class="footer-link">Nhóm 10</a>
-        </div>
-        <div class="d-none d-lg-inline-block">
-          <a href="https://www.youtube.com/" class="footer-link me-4" target="_blank">Youtube</a>
-          <a href="https://www.facebook.com/" target="_blank" class="footer-link me-4">Facebook</a>
-
-          <a
-            href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
-            target="_blank"
-            class="footer-link me-4"
-            >Documentation</a
-          >
-
-          <a
-            href="https://github.com/Hoang-Tung-0801/He_thong_quan_ly_thuc_tap_sinh_cho_doanh_nghiep"
-            target="_blank"
-            class="footer-link"
-            >Support</a
-          >
-        </div>
+  <div class="container-xxl">
+    <div class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
+      <div class="text-body">
+        ©
+        <script>
+          document.write(new Date().getFullYear());
+        </script>
+        , made with ❤️ by
+        <a href="https://github.com/Hoang-Tung-0801/He_thong_quan_ly_thuc_tap_sinh_cho_doanh_nghiep" target="_blank" class="footer-link">Nhóm 10</a>
+      </div>
+      <div class="d-none d-lg-inline-block">
+        <a
+          href="https://docs.google.com/document/d/1xHk9KSn_4ahE6lnzRG3DkIWzLFBkrGda_n_dU1gQO-w/edit?tab=t.0#heading=h.l9sagyhna8jy"
+          target="_blank"
+          class="footer-link me-4"
+          >Documentation</a
+        >
+        <a
+          href="https://github.com/Hoang-Tung-0801/He_thong_quan_ly_thuc_tap_sinh_cho_doanh_nghiep"
+          target="_blank"
+          class="footer-link"
+          >Support</a
+        >
       </div>
     </div>
-  </footer>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const body = document.body;
+
+    // Kiểm tra trạng thái chế độ tối từ localStorage
+    if (localStorage.getItem('darkMode') === 'enabled') {
+      body.classList.add('dark-mode');
+      darkModeToggle.checked = true;
+    }
+
+    // Bắt sự kiện khi công tắc được nhấn
+    darkModeToggle.addEventListener('change', function() {
+      if (this.checked) {
+        body.classList.add('dark-mode');
+        localStorage.setItem('darkMode', 'enabled');
+      } else {
+        body.classList.remove('dark-mode');
+        localStorage.setItem('darkMode', 'disabled');
+      }
+    });
+  });
+</script>
+
+<style>
+  /* Bỏ gạch chân cho các liên kết trong footer */
+  .footer-link {
+    text-decoration: none !important;
+  }
+
+  /* Đảm bảo gạch chân không xuất hiện khi hover */
+  .footer-link:hover {
+    text-decoration: none !important;
+  }
+</style>

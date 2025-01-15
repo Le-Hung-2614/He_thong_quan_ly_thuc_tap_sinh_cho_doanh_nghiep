@@ -1,115 +1,225 @@
 {% load static %}
-<div class="container-xxl flex-grow-1 container-p-y">
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trang chủ</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+</head>
+<body>
+  <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
-      <div class="col-xxl-8 mb-6 order-0">
+      <!-- Phần "Chúc mừng Quản lý!" -->
+      <div class="col-xxl-8 mb-4">
         <div class="card">
           <div class="d-flex align-items-start row">
             <div class="col-sm-7">
               <div class="card-body">
                 <h5 class="card-title text-primary mb-3">Chúc mừng Quản lý! 🎉</h5>
-                <p class="mb-6">
-                  Bạn đã hoàn thành 80% công việc hôm nay.
-                </p>
-                <a href="javascript:;" class="btn btn-sm btn-outline-primary">View Badges</a>
+                <p class="mb-3">Bạn đã hoàn thành 80% công việc hôm nay!</p>
+                <p class="mb-3">Bạn đã còn 20% công việc hôm nay!</p>
+                <a href="javascript:;" class="btn btn-sm btn-outline-primary">Xem huy hiệu</a>
+                <a href="javascript:;" class="btn btn-sm btn-outline-primary">Bắt đầu công việc còn lại</a>
               </div>
             </div>
             <div class="col-sm-5 text-center text-sm-left">
               <div class="card-body pb-0 px-0 px-md-6">
-                <img
-                  src=" {%static 'home/assets/img/illustrations/man-with-laptop.png' %}"
-                  height="175"
-                  class="scaleX-n1-rtl"
-                  alt="View Badge User" />
+                <img src="{% static 'home/assets/img/illustrations/man-with-laptop.png' %}" height="175" class="scaleX-n1-rtl" alt="View Badge User" />
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-lg-4 col-md-4 order-1">
+
+      <!-- Phần lấp đầy khoảng trống -->
+      <div class="col-12 col-md-4  mb-4">
         <div class="row">
-          <div class="col-lg-6 col-md-12 col-6 mb-6">
+          <!-- Thêm Card thông báo hoặc thông tin nhanh -->
+          <div class="col-12 mb-4">
             <div class="card h-100">
-              <div class="card-body">
-                <div class="card-title d-flex align-items-start justify-content-between mb-4">
-                  <div class="avatar flex-shrink-0">
-                    <img
-                      src=" {%static 'home/assets/img/icons/unicons/chart-success.png' %}"
-                      alt="chart success"
-                      class="rounded" />
-                  </div>
-                  <div class="dropdown">
-                    <button
-                      class="btn p-0"
-                      type="button"
-                      id="cardOpt3"
-                      data-bs-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false">
-                      <i class="bx bx-dots-vertical-rounded text-muted"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt3">
-                      <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                      <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                    </div>
-                  </div>
-                </div>
-                <p class="mb-1">Profit</p>
-                <h4 class="card-title mb-3">$12,628</h4>
-                <small class="text-success fw-medium"><i class="bx bx-up-arrow-alt"></i> +72.80%</small>
+              <div class="card-header">
+                <h5 class="card-title mb-0">Hoạt động gần đây</h5>
               </div>
-            </div>
-          </div>
-          <div class="col-lg-6 col-md-12 col-6 mb-6">
-            <div class="card h-100">
               <div class="card-body">
-                <div class="card-title d-flex align-items-start justify-content-between mb-4">
-                  <div class="avatar flex-shrink-0">
-                    <img
-                      src=" {%static 'home/assets/img/icons/unicons/wallet-info.png' %}"
-                      alt="wallet info"
-                      class="rounded" />
-                  </div>
-                  <div class="dropdown">
-                    <button
-                      class="btn p-0"
-                      type="button"
-                      id="cardOpt6"
-                      data-bs-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false">
-                      <i class="bx bx-dots-vertical-rounded text-muted"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
-                      <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                      <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                <ul class="list-unstyled mb-0">
+                  <li class="d-flex mb-3">
+                    <div class="avatar flex-shrink-0 me-3">
+                      <span class="avatar-initial rounded bg-label-warning"><i class="bx bx-task bx-sm"></i></span>
                     </div>
-                  </div>
-                </div>
-                <p class="mb-1">Sales</p>
-                <h4 class="card-title mb-3">$4,679</h4>
-                <small class="text-success fw-medium"><i class="bx bx-up-arrow-alt"></i> +28.42%</small>
+                    <div>
+                      <h6 class="mb-1">Công việc mới được giao</h6>
+                      <small class="text-muted">2 giờ trước</small>
+                    </div>
+                  </li>
+                  <li class="d-flex mb-3">
+                    <div class="avatar flex-shrink-0 me-3">
+                      <span class="avatar-initial rounded bg-label-info"><i class="bx bx-message-alt bx-sm"></i></span>
+                    </div>
+                    <div>
+                      <h6 class="mb-1">Phản hồi từ mentor</h6>
+                      <small class="text-muted">5 phản hồi mới</small>
+                    </div>
+                  </li>
+                  <li class="d-flex">
+                    <div class="avatar flex-shrink-0 me-3">
+                      <span class="avatar-initial rounded bg-label-success"><i class="bx bx-check-circle bx-sm"></i></span>
+                    </div>
+                    <div>
+                      <h6 class="mb-1">Công việc hoàn thành</h6>
+                      <small class="text-muted">15/20 công việc</small>
+                    </div>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- Total Revenue -->
-      <div class="col-12 col-xxl-8 order-2 order-md-3 order-xxl-2 mb-6">
+
+      <!-- Thông tin tóm tắt nhanh -->
+      <div class="col-12 col-md-4 mb-4">
+        <div class="row">
+          <div class="col-11 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title mb-4">Thông tin tóm tắt nhanh</h5>
+                <ul class="list-unstyled mb-0">
+                  <li class="d-flex mb-3">
+                    <div class="avatar flex-shrink-0 me-3">
+                      <span class="avatar-initial rounded bg-label-primary"><i class="bx bx-user bx-sm"></i></span>
+                    </div>
+                    <div>
+                      <h6 class="mb-0">Sinh viên đang hoạt động</h6>
+                      <small class="text-muted">50</small>
+                    </div>
+                  </li>
+                  <li class="d-flex mb-3">
+                    <div class="avatar flex-shrink-0 me-3">
+                      <span class="avatar-initial rounded bg-label-info"><i class="bx bx-book bx-sm"></i></span>
+                    </div>
+                    <div>
+                      <h6 class="mb-0">Chương trình đào tạo</h6>
+                      <small class="text-muted">25</small>
+                    </div>
+                  </li>
+                  <li class="d-flex">
+                    <div class="avatar flex-shrink-0 me-3">
+                      <span class="avatar-initial rounded bg-label-success"><i class="bx bx-check-circle bx-sm"></i></span>
+                    </div>
+                    <div>
+                      <h6 class="mb-0">Tỷ lệ hoàn thành công việc</h6>
+                      <small class="text-muted">80%</small>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Thông báo mới nhất -->
+      <div class="col-12 col-md-4 mb-4">
+        <div class="row">
+          <div class="col-12 mb-4">
+            <div class="card h-100">
+              <div class="card-header">
+                <h5 class="card-title mb-0">Thông báo mới nhất</h5>
+              </div>
+              <div class="card-body">
+                <ul class="list-unstyled mb-0">
+                  <li class="d-flex mb-3">
+                    <div class="avatar flex-shrink-0 me-3">
+                      <span class="avatar-initial rounded bg-label-warning"><i class="bx bx-alarm bx-sm"></i></span>
+                    </div>
+                    <div>
+                      <h6 class="mb-1">Cuộc họp sắp tới</h6>
+                      <small class="text-muted">10:00 AM - Phòng họp A</small>
+                    </div>
+                  </li>
+                  <li class="d-flex mb-3">
+                    <div class="avatar flex-shrink-0 me-3">
+                      <span class="avatar-initial rounded bg-label-info"><i class="bx bx-message-alt bx-sm"></i></span>
+                    </div>
+                    <div>
+                      <h6 class="mb-1">Phản hồi từ mentor</h6>
+                      <small class="text-muted">5 phản hồi mới</small>
+                    </div>
+                  </li>
+                  <li class="d-flex">
+                    <div class="avatar flex-shrink-0 me-3">
+                      <span class="avatar-initial rounded bg-label-success"><i class="bx bx-task bx-sm"></i></span>
+                    </div>
+                    <div>
+                      <h6 class="mb-1">Công việc ưu tiên</h6>
+                      <small class="text-muted">Hoàn thành báo cáo tháng</small>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-4 mb-4">
+        <div class="row">
+          <!-- Công việc đã hoàn thành -->
+          <div class="col-6 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h6 class="mb-0">Công việc đã hoàn thành</h6>
+                    <small class="text-muted">Hôm nay</small>
+                  </div>
+                  <div class="avatar">
+                    <span class="avatar-initial rounded bg-label-success"><i class="bx bx-check-circle bx-sm"></i></span>
+                  </div>
+                </div>
+                <h4 class="card-title mb-0 mt-3">15/20</h4>
+                <small class="text-success fw-medium"><i class="bx bx-chevron-up"></i> 75%</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interns đang hoạt động -->
+          <div class="col-6 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h6 class="mb-0">Interns đang hoạt động</h6>
+                    <small class="text-muted">Hiện tại</small>
+                  </div>
+                  <div class="avatar">
+                    <span class="avatar-initial rounded bg-label-primary"><i class="bx bx-user bx-sm"></i></span>
+                  </div>
+                </div>
+                <h4 class="card-title mb-0 mt-3">50</h4>
+                <small class="text-success fw-medium"><i class="bx bx-chevron-up"></i> 10%</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Thống kê trực quan hơn -->
+      <div class="col-12 col-xxl-8 mb-4">
         <div class="card">
           <div class="row row-bordered g-0">
             <div class="col-lg-8">
               <div class="card-header d-flex align-items-center justify-content-between">
                 <div class="card-title mb-0">
-                  <h5 class="m-0 me-2">Total Revenue</h5>
+                  <h5 class="m-0 me-2">Thống Kê Năm 2024 So Với 2023</h5>
                 </div>
                 <div class="dropdown">
-                  <button
-                    class="btn p-0"
-                    type="button"
-                    id="totalRevenue"
-                    data-bs-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false">
+                  <button class="btn p-0" type="button" id="totalRevenue" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="bx bx-dots-vertical-rounded bx-lg text-muted"></i>
                   </button>
                   <div class="dropdown-menu dropdown-menu-end" aria-labelledby="totalRevenue">
@@ -126,58 +236,42 @@
                 <div class="text-center mb-6">
                   <div class="btn-group">
                     <button type="button" class="btn btn-outline-primary">
-                      <script>
-                        document.write(new Date().getFullYear() - 1);
-                      </script>
+                      <script>document.write(new Date().getFullYear() - 1);</script>
                     </button>
-                    <button
-                      type="button"
-                      class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false">
+                    <button type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
                       <span class="visually-hidden">Toggle Dropdown</span>
                     </button>
                     <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="javascript:void(0);">2023</a></li>
+                      <li><a class="dropdown-item" href="javascript:void(0);">2022</a></li>
                       <li><a class="dropdown-item" href="javascript:void(0);">2021</a></li>
-                      <li><a class="dropdown-item" href="javascript:void(0);">2020</a></li>
-                      <li><a class="dropdown-item" href="javascript:void(0);">2019</a></li>
                     </ul>
                   </div>
                 </div>
 
-                <div id="growthChart"></div>
-                <div class="text-center fw-medium my-6">62% Company Growth</div>
+                <!-- Tabs for switching between statistics -->
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="pills-intern-tab" data-bs-toggle="pill" data-bs-target="#pills-intern" type="button" role="tab" aria-controls="pills-intern" aria-selected="true">Intern Performance</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="pills-training-tab" data-bs-toggle="pill" data-bs-target="#pills-training" type="button" role="tab" aria-controls="pills-training" aria-selected="false">Training Program</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="pills-recruitment-tab" data-bs-toggle="pill" data-bs-target="#pills-recruitment" type="button" role="tab" aria-controls="pills-recruitment" aria-selected="false">Recruitment Metrics</button>
+                  </li>
+                </ul>
 
-                <div class="d-flex gap-3 justify-content-between">
-                  <div class="d-flex">
-                    <div class="avatar me-2">
-                      <span class="avatar-initial rounded-2 bg-label-primary"
-                        ><i class="bx bx-dollar bx-lg text-primary"></i
-                      ></span>
-                    </div>
-                    <div class="d-flex flex-column">
-                      <small>
-                        <script>
-                          document.write(new Date().getFullYear() - 1);
-                        </script>
-                      </small>
-                      <h6 class="mb-0">$32.5k</h6>
-                    </div>
+                <!-- Tab content -->
+                <div class="tab-content" id="pills-tabContent">
+                  <div class="tab-pane fade show active" id="pills-intern" role="tabpanel" aria-labelledby="pills-intern-tab">
+                    <div id="internPerformanceChart"></div>
                   </div>
-                  <div class="d-flex">
-                    <div class="avatar me-2">
-                      <span class="avatar-initial rounded-2 bg-label-info"
-                        ><i class="bx bx-wallet bx-lg text-info"></i
-                      ></span>
-                    </div>
-                    <div class="d-flex flex-column">
-                      <small>
-                        <script>
-                          document.write(new Date().getFullYear() - 2);
-                        </script>
-                      </small>
-                      <h6 class="mb-0">$41.2k</h6>
-                    </div>
+                  <div class="tab-pane fade" id="pills-training" role="tabpanel" aria-labelledby="pills-training-tab">
+                    <div id="trainingProgramChart"></div>
+                  </div>
+                  <div class="tab-pane fade" id="pills-recruitment" role="tabpanel" aria-labelledby="pills-recruitment-tab">
+                    <div id="recruitmentMetricsChart"></div>
                   </div>
                 </div>
               </div>
@@ -185,370 +279,146 @@
           </div>
         </div>
       </div>
-      <!--/ Total Revenue -->
-      <div class="col-12 col-md-8 col-lg-12 col-xxl-4 order-3 order-md-2">
+
+      <!-- Phần "Nhiệm vụ chính" -->
+      <div class="col-12 col-md-8 col-lg-12 col-xxl-4 mb-4">
         <div class="row">
-          <div class="col-6 mb-6">
-            <div class="card h-100">
-              <div class="card-body">
-                <div class="card-title d-flex align-items-start justify-content-between mb-4">
-                  <div class="avatar flex-shrink-0">
-                    <img src=" {%static 'home/assets/img/icons/unicons/paypal.png' %}" alt="paypal" class="rounded" />
-                  </div>
-                  <div class="dropdown">
-                    <button
-                      class="btn p-0"
-                      type="button"
-                      id="cardOpt4"
-                      data-bs-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false">
-                      <i class="bx bx-dots-vertical-rounded text-muted"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt4">
-                      <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                      <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                    </div>
-                  </div>
-                </div>
-                <p class="mb-1">Payments</p>
-                <h4 class="card-title mb-3">$2,456</h4>
-                <small class="text-danger fw-medium"><i class="bx bx-down-arrow-alt"></i> -14.82%</small>
-              </div>
-            </div>
-          </div>
-          <div class="col-6 mb-6">
-            <div class="card h-100">
-              <div class="card-body">
-                <div class="card-title d-flex align-items-start justify-content-between mb-4">
-                  <div class="avatar flex-shrink-0">
-                    <img src=" {%static 'home/assets/img/icons/unicons/cc-primary.png' %}" alt="Credit Card" class="rounded" />
-                  </div>
-                  <div class="dropdown">
-                    <button
-                      class="btn p-0"
-                      type="button"
-                      id="cardOpt1"
-                      data-bs-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false">
-                      <i class="bx bx-dots-vertical-rounded text-muted"></i>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="cardOpt1">
-                      <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                      <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                    </div>
-                  </div>
-                </div>
-                <p class="mb-1">Transactions</p>
-                <h4 class="card-title mb-3">$14,857</h4>
-                <small class="text-success fw-medium"><i class="bx bx-up-arrow-alt"></i> +28.14%</small>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 mb-6">
+          <div class="col-12 mb-4">
             <div class="card">
               <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center flex-sm-row flex-column gap-10">
-                  <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
-                    <div class="card-title mb-6">
-                      <h5 class="text-nowrap mb-1">Profile Report</h5>
-                      <span class="badge bg-label-warning">YEAR 2022</span>
-                    </div>
-                    <div class="mt-sm-auto">
-                      <span class="text-success text-nowrap fw-medium"
-                        ><i class="bx bx-up-arrow-alt"></i> 68.2%</span
-                      >
-                      <h4 class="mb-0">$84,686k</h4>
-                    </div>
-                  </div>
-                  <div id="profileReportChart"></div>
+                <h5 class="card-title mb-4">Nhiệm vụ chính</h5>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Phỏng vấn 5 ứng viên
+                    <span class="badge bg-primary rounded-pill">50%</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Đánh giá tiến độ nhóm A
+                    <span class="badge bg-warning rounded-pill">30%</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Hoàn thành báo cáo tháng
+                    <span class="badge bg-success rounded-pill">80%</span>
+                  </li>
+                </ul>
+                <div class="mt-3">
+                  <a href="javascript:;" class="btn btn-sm btn-outline-primary">Xem chi tiết</a>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <!-- Order Statistics -->
-      <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-6">
+
+      <!-- Biểu đồ Donut -->
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
         <div class="card h-100">
-          <div class="card-header d-flex justify-content-between">
-            <div class="card-title mb-0">
-              <h5 class="mb-1 me-2">Order Statistics</h5>
-              <p class="card-subtitle">42.82k Total Sales</p>
-            </div>
-            <div class="dropdown">
-              <button
-                class="btn text-muted p-0"
-                type="button"
-                id="orederStatistics"
-                data-bs-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false">
-                <i class="bx bx-dots-vertical-rounded bx-lg"></i>
-              </button>
-              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics">
-                <a class="dropdown-item" href="javascript:void(0);">Select All</a>
-                <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
-                <a class="dropdown-item" href="javascript:void(0);">Share</a>
-              </div>
-            </div>
+          <div class="card-header">
+            <h5 class="card-title mb-0">Tỷ lệ hoàn thành chương trình</h5>
           </div>
           <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center mb-6">
-              <div class="d-flex flex-column align-items-center gap-1">
-                <h3 class="mb-1">8,258</h3>
-                <small>Total Orders</small>
-              </div>
-              <div id="orderStatisticsChart"></div>
-            </div>
-            <ul class="p-0 m-0">
-              <li class="d-flex align-items-center mb-5">
-                <div class="avatar flex-shrink-0 me-3">
-                  <span class="avatar-initial rounded bg-label-primary"
-                    ><i class="bx bx-mobile-alt"></i
-                  ></span>
-                </div>
-                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                  <div class="me-2">
-                    <h6 class="mb-0">Electronic</h6>
-                    <small>Mobile, Earbuds, TV</small>
-                  </div>
-                  <div class="user-progress">
-                    <h6 class="mb-0">82.5k</h6>
-                  </div>
-                </div>
-              </li>
-              <li class="d-flex align-items-center mb-5">
-                <div class="avatar flex-shrink-0 me-3">
-                  <span class="avatar-initial rounded bg-label-success"><i class="bx bx-closet"></i></span>
-                </div>
-                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                  <div class="me-2">
-                    <h6 class="mb-0">Fashion</h6>
-                    <small>T-shirt, Jeans, Shoes</small>
-                  </div>
-                  <div class="user-progress">
-                    <h6 class="mb-0">23.8k</h6>
-                  </div>
-                </div>
-              </li>
-              <li class="d-flex align-items-center mb-5">
-                <div class="avatar flex-shrink-0 me-3">
-                  <span class="avatar-initial rounded bg-label-info"><i class="bx bx-home-alt"></i></span>
-                </div>
-                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                  <div class="me-2">
-                    <h6 class="mb-0">Decor</h6>
-                    <small>Fine Art, Dining</small>
-                  </div>
-                  <div class="user-progress">
-                    <h6 class="mb-0">849k</h6>
-                  </div>
-                </div>
-              </li>
-              <li class="d-flex align-items-center">
-                <div class="avatar flex-shrink-0 me-3">
-                  <span class="avatar-initial rounded bg-label-secondary"
-                    ><i class="bx bx-football"></i
-                  ></span>
-                </div>
-                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                  <div class="me-2">
-                    <h6 class="mb-0">Sports</h6>
-                    <small>Football, Cricket Kit</small>
-                  </div>
-                  <div class="user-progress">
-                    <h6 class="mb-0">99</h6>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <!--/ Order Statistics -->
-
-      <!-- Expense Overview -->
-      <div class="col-md-6 col-lg-4 order-1 mb-6">
-        <div class="card h-100">
-          <div class="card-header nav-align-top">
-            <ul class="nav nav-pills" role="tablist">
-              <li class="nav-item">
-                <button
-                  type="button"
-                  class="nav-link active"
-                  role="tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#navs-tabs-line-card-income"
-                  aria-controls="navs-tabs-line-card-income"
-                  aria-selected="true">
-                  Income
-                </button>
-              </li>
-              <li class="nav-item">
-                <button type="button" class="nav-link" role="tab">Expenses</button>
-              </li>
-              <li class="nav-item">
-                <button type="button" class="nav-link" role="tab">Profit</button>
-              </li>
-            </ul>
-          </div>
-          <div class="card-body">
-            <div class="tab-content p-0">
-              <div class="tab-pane fade show active" id="navs-tabs-line-card-income" role="tabpanel">
-                <div class="d-flex mb-6">
-                  <div class="avatar flex-shrink-0 me-3">
-                    <img src=" {%static 'home/assets/img/icons/unicons/wallet.png' %}" alt="User" />
-                  </div>
-                  <div>
-                    <p class="mb-0">Total Balance</p>
-                    <div class="d-flex align-items-center">
-                      <h6 class="mb-0 me-1">$459.10</h6>
-                      <small class="text-success fw-medium">
-                        <i class="bx bx-chevron-up bx-lg"></i>
-                        42.9%
-                      </small>
-                    </div>
-                  </div>
-                </div>
-                <div id="incomeChart"></div>
-                <div class="d-flex align-items-center justify-content-center mt-6 gap-3">
-                  <div class="flex-shrink-0">
-                    <div id="expensesOfWeek"></div>
-                  </div>
-                  <div>
-                    <h6 class="mb-0">Income this week</h6>
-                    <small>$39k less than last week</small>
-                  </div>
-                </div>
-              </div>
+            <canvas id="donutChart"></canvas>
+            <div class="text-center mt-3">
+              <p class="mb-1">Tổng số chương trình: <strong>25</strong></p>
+              <p class="mb-0">Hoàn thành: <strong>20</strong></p>
             </div>
           </div>
         </div>
       </div>
-      <!--/ Expense Overview -->
-
-      <!-- Transactions -->
-      <div class="col-md-6 col-lg-4 order-2 mb-6">
-        <div class="card h-100">
-          <div class="card-header d-flex align-items-center justify-content-between">
-            <h5 class="card-title m-0 me-2">Transactions</h5>
-            <div class="dropdown">
-              <button
-                class="btn text-muted p-0"
-                type="button"
-                id="transactionID"
-                data-bs-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false">
-                <i class="bx bx-dots-vertical-rounded bx-lg"></i>
-              </button>
-              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="transactionID">
-                <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
-                <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
-                <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
-              </div>
-            </div>
-          </div>
-          <div class="card-body pt-4">
-            <ul class="p-0 m-0">
-              <li class="d-flex align-items-center mb-6">
-                <div class="avatar flex-shrink-0 me-3">
-                  <img src=" {%static 'home/assets/img/icons/unicons/paypal.png' %}" alt="User" class="rounded" />
-                </div>
-                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                  <div class="me-2">
-                    <small class="d-block">Paypal</small>
-                    <h6 class="fw-normal mb-0">Send money</h6>
-                  </div>
-                  <div class="user-progress d-flex align-items-center gap-2">
-                    <h6 class="fw-normal mb-0">+82.6</h6>
-                    <span class="text-muted">USD</span>
-                  </div>
-                </div>
-              </li>
-              <li class="d-flex align-items-center mb-6">
-                <div class="avatar flex-shrink-0 me-3">
-                  <img src=" {%static 'home/assets/img/icons/unicons/wallet.png' %}" alt="User" class="rounded" />
-                </div>
-                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                  <div class="me-2">
-                    <small class="d-block">Wallet</small>
-                    <h6 class="fw-normal mb-0">Mac'D</h6>
-                  </div>
-                  <div class="user-progress d-flex align-items-center gap-2">
-                    <h6 class="fw-normal mb-0">+270.69</h6>
-                    <span class="text-muted">USD</span>
-                  </div>
-                </div>
-              </li>
-              <li class="d-flex align-items-center mb-6">
-                <div class="avatar flex-shrink-0 me-3">
-                  <img src=" {%static 'home/assets/img/icons/unicons/chart.png' %}" alt="User" class="rounded" />
-                </div>
-                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                  <div class="me-2">
-                    <small class="d-block">Transfer</small>
-                    <h6 class="fw-normal mb-0">Refund</h6>
-                  </div>
-                  <div class="user-progress d-flex align-items-center gap-2">
-                    <h6 class="fw-normal mb-0">+637.91</h6>
-                    <span class="text-muted">USD</span>
-                  </div>
-                </div>
-              </li>
-              <li class="d-flex align-items-center mb-6">
-                <div class="avatar flex-shrink-0 me-3">
-                  <img src=" {%static 'home/assets/img/icons/unicons/cc-primary.png' %}" alt="User" class="rounded" />
-                </div>
-                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                  <div class="me-2">
-                    <small class="d-block">Credit Card</small>
-                    <h6 class="fw-normal mb-0">Ordered Food</h6>
-                  </div>
-                  <div class="user-progress d-flex align-items-center gap-2">
-                    <h6 class="fw-normal mb-0">-838.71</h6>
-                    <span class="text-muted">USD</span>
-                  </div>
-                </div>
-              </li>
-              <li class="d-flex align-items-center mb-6">
-                <div class="avatar flex-shrink-0 me-3">
-                  <img src=" {%static 'home/assets/img/icons/unicons/wallet.png' %}" alt="User" class="rounded" />
-                </div>
-                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                  <div class="me-2">
-                    <small class="d-block">Wallet</small>
-                    <h6 class="fw-normal mb-0">Starbucks</h6>
-                  </div>
-                  <div class="user-progress d-flex align-items-center gap-2">
-                    <h6 class="fw-normal mb-0">+203.33</h6>
-                    <span class="text-muted">USD</span>
-                  </div>
-                </div>
-              </li>
-              <li class="d-flex align-items-center">
-                <div class="avatar flex-shrink-0 me-3">
-                  <img src=" {%static 'home/assets/img/icons/unicons/cc-warning.png' %}" alt="User" class="rounded" />
-                </div>
-                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                  <div class="me-2">
-                    <small class="d-block">Mastercard</small>
-                    <h6 class="fw-normal mb-0">Ordered Food</h6>
-                  </div>
-                  <div class="user-progress d-flex align-items-center gap-2">
-                    <h6 class="fw-normal mb-0">-92.45</h6>
-                    <span class="text-muted">USD</span>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <!--/ Transactions -->
     </div>
   </div>
+
+  <!-- Bootstrap JS và dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+  <!-- Script để tạo biểu đồ Donut -->
+  <script>
+    // Donut Chart
+    const donutChart = new Chart(document.getElementById('donutChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Hoàn thành', 'Chưa hoàn thành'],
+        datasets: [{
+          data: [20, 5],
+          backgroundColor: ['#4caf50', '#ff6384'],
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          tooltip: {
+            enabled: true,
+            callbacks: {
+              label: function(context) {
+                return context.label + ': ' + context.raw;
+              }
+            }
+          }
+        }
+      }
+    });
+  </script>
+
+  <script>
+    // Kích hoạt các tab Bootstrap
+    const triggerTabList = document.querySelectorAll('#pills-tab button');
+    triggerTabList.forEach(triggerEl => {
+      const tabTrigger = new bootstrap.Tab(triggerEl);
+  
+      triggerEl.addEventListener('click', event => {
+        event.preventDefault();
+        tabTrigger.show();
+      });
+    });
+  </script>
+
+  <script>
+    // Khởi tạo biểu đồ khi tab được hiển thị
+    document.addEventListener('DOMContentLoaded', function () {
+      const tabPanes = document.querySelectorAll('.tab-pane');
+  
+      tabPanes.forEach(tabPane => {
+        tabPane.addEventListener('shown.bs.tab', function (event) {
+          const target = event.target.getAttribute('aria-controls');
+  
+          if (target === 'pills-projects') {
+            // Khởi tạo biểu đồ Dự Án
+            const projectsChart = new Chart(document.getElementById('projectsChart'), {
+              type: 'line',
+              data: {
+                labels: ['Dự án 1', 'Dự án 2', 'Dự án 3', 'Dự án 4', 'Dự án 5'],
+                datasets: [{
+                  label: 'Tiến Độ',
+                  data: [80, 90, 70, 85, 95],
+                  borderColor: 'rgba(153, 102, 255, 1)',
+                  borderWidth: 2
+                }]
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true
+                  }
+                }
+              }
+            });
+          } else if (target === 'pills-feedback') {
+            // Khởi tạo biểu đồ Phản Hồi
+            const feedbackChart = new Chart(document.getElementById('feedbackChart'), {
+              type: 'pie',
+              data: {
+                labels: ['Tích Cực', 'Trung Bình', 'Tiêu Cực'],
+                datasets: [{
+                  data: [70, 20, 10],
+                  backgroundColor: ['#4caf50', '#ffc107', '#f44336']
+                }]
+              }
+            });
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
