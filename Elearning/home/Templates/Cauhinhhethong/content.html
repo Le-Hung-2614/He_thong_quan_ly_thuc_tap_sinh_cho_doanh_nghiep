@@ -11,6 +11,19 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <!-- Custom CSS -->
   <style>
+    /* Dark Mode Placeholder Styles */
+    .dark-mode ::placeholder {
+        color: #a0a0a0; /* Màu chữ placeholder trong chế độ tối */
+        opacity: 1; /* Đảm bảo placeholder không bị mờ */
+    }
+
+    .dark-mode :-ms-input-placeholder {
+        color: #a0a0a0; /* Màu chữ placeholder trong chế độ tối cho IE */
+    }
+
+    .dark-mode ::-ms-input-placeholder {
+        color: #a0a0a0; /* Màu chữ placeholder trong chế độ tối cho Microsoft Edge */
+    }
     body {
       background-color: #f8f9fa;
       font-family: 'Arial', sans-serif;
@@ -96,6 +109,18 @@
     .dropdown-menu {
       border-radius: 10px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Dark Mode Styles for Select Options */
+    .dark-mode .form-select {
+        background-color: #2d2d2d;
+        border-color: #444;
+        color: #ffffff;
+    }
+
+    .dark-mode .form-select option {
+        background-color: #1e1e1e;
+        color: #ffffff;
     }
   </style>
 </head>

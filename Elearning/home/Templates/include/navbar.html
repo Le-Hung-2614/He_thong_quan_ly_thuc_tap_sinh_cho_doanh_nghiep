@@ -87,7 +87,7 @@
               </a>
             </li>
             <li>
-              <a class="dropdown-item" href="#">
+              <a class="dropdown-item" href="{% url 'cauhinhhethong' %}">
                 <i class="bx bx-cog bx-md me-3"></i><span>Settings</span>
               </a>
             </li>
@@ -125,7 +125,7 @@
               <div class="dropdown-divider my-1"></div>
             </li>
             <li>
-              <a class="dropdown-item text-danger" href="javascript:void(0);">
+              <a class="dropdown-item text-danger" href="{% url 'logout' %}">
                 <i class="bx bx-power-off bx-md me-3"></i><span>Log Out</span>
               </a>
             </li>
@@ -135,27 +135,3 @@
       </ul>
     </div>
   </nav>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const darkModeToggle = document.getElementById('darkModeToggle');
-      const body = document.body;
-    
-      // Kiểm tra trạng thái chế độ tối từ localStorage
-      if (localStorage.getItem('darkMode') === 'enabled') {
-        body.classList.add('dark-mode');
-        darkModeToggle.checked = true;
-      }
-    
-      // Bắt sự kiện khi công tắc được nhấn
-      darkModeToggle.addEventListener('change', function() {
-        if (this.checked) {
-          body.classList.add('dark-mode');
-          localStorage.setItem('darkMode', 'enabled');
-        } else {
-          body.classList.remove('dark-mode');
-          localStorage.setItem('darkMode', 'disabled');
-        }
-      });
-    });
-  </script>

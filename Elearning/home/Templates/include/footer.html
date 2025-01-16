@@ -27,30 +27,6 @@
   </div>
 </footer>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const darkModeToggle = document.getElementById('darkModeToggle');
-    const body = document.body;
-
-    // Kiểm tra trạng thái chế độ tối từ localStorage
-    if (localStorage.getItem('darkMode') === 'enabled') {
-      body.classList.add('dark-mode');
-      darkModeToggle.checked = true;
-    }
-
-    // Bắt sự kiện khi công tắc được nhấn
-    darkModeToggle.addEventListener('change', function() {
-      if (this.checked) {
-        body.classList.add('dark-mode');
-        localStorage.setItem('darkMode', 'enabled');
-      } else {
-        body.classList.remove('dark-mode');
-        localStorage.setItem('darkMode', 'disabled');
-      }
-    });
-  });
-</script>
-
 <style>
   /* Bỏ gạch chân cho các liên kết trong footer */
   .footer-link {

@@ -66,6 +66,63 @@
     .form-check-label {
       color: #555;
     }
+    /* Dark Mode Styles */
+    body.dark-mode {
+        background-color: #121212;
+        color: #ffffff;
+    }
+
+    .dark-mode .card {
+        background-color: #1e1e1e;
+        color: #ffffff;
+    }
+
+    .dark-mode .card-header {
+        background-color: #0d6efd;
+    }
+
+    .dark-mode .form-control {
+        background-color: #2d2d2d;
+        border-color: #444;
+        color: #ffffff;
+    }
+
+    .dark-mode .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    .dark-mode .form-label {
+        color: #ffffff;
+    }
+
+    .dark-mode .form-check-label {
+        color: #ffffff;
+    }
+
+    .dark-mode ::placeholder {
+        color: #a0a0a0;
+        opacity: 1;
+    }
+
+    .dark-mode :-ms-input-placeholder {
+        color: #a0a0a0;
+    }
+
+    .dark-mode ::-ms-input-placeholder {
+        color: #a0a0a0;
+    }
+
+    .dark-mode .form-select {
+        background-color: #2d2d2d;
+        border-color: #444;
+        color: #ffffff;
+    }
+
+    .dark-mode .form-select option {
+        background-color: #1e1e1e;
+        color: #ffffff;
+    }
   </style>
 </head>
 <body>
@@ -82,7 +139,7 @@
         </div>
         <div class="mb-3">
           <label for="permissions" class="form-label">Quyền hạn:</label>
-          <select class="form-select" id="permissions" multiple>
+          <select class="form-select" id="permissions" >
             <option value="view">Xem dữ liệu</option>
             <option value="edit">Chỉnh sửa dữ liệu</option>
             <option value="delete">Xóa dữ liệu</option>
