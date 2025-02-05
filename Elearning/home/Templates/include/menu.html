@@ -1,88 +1,111 @@
 {% load static %}
-  <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-    <div class="app-brand demo">
-      <a href="{% url 'home' %}" class="app-brand-link" style="text-decoration: none; color: inherit;">
-        <span class="app-brand-logo demo">
-          <!-- Thay thế biểu tượng bằng hình ảnh -->
-          <img src="{% static 'home/assets/img/favicon/1.png' %}" alt="Logo" style="width: 40px; height: 40px;">
-        </span>
-        <span class="app-brand-text demo menu-text fw-bold ms-2">Quản lý SV</span>
-      </a>
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+  <div class="app-brand demo">
+    <a href="{% url 'home' %}" class="app-brand-link" style="text-decoration: none; color: inherit;">
+      <span class="app-brand-logo demo">
+        <img src="{% static 'home/assets/img/favicon/1.png' %}" alt="Logo" style="width: 40px; height: 40px;">
+      </span>
+      <span class="app-brand-text demo menu-text fw-bold ms-2">Quản lý SV</span>
+    </a>
 
-      <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
-        <i class="bx bx-chevron-left bx-sm d-flex align-items-center justify-content-center"></i>
-      </a>
-    </div>
+    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+      <i class="bx bx-chevron-left bx-sm d-flex align-items-center justify-content-center"></i>
+    </a>
+  </div>
 
-    <div class="menu-inner-shadow"></div>
+  <div class="menu-inner-shadow"></div>
 
-    <ul class="menu-inner py-1">
-      <!-- Quản lí tuyển dụng -->
-      <li class="menu-item">
-        <a href="cards-basic.html" class="menu-link">
+  <ul class="menu-inner py-1">
+    <!-- Quản lí tuyển dụng (HR và Admin) -->
+    {% if is_hr_manager or is_admin %}
+      <li class="menu-item {% if request.path == '/quanlituyendung/' %}active{% endif %}">
+        <a href="{% url 'quanlituyendung' %}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-clipboard"></i>
           <div class="text-truncate" data-i18n="Basic">Quản lí tuyển dụng</div>
         </a>
       </li>
-      <!-- Lịch Phỏng vấn -->
-      <li class="menu-item">
-        <a href="cards-basic.html" class="menu-link">
+    {% endif %}
+
+    <!-- Lịch Phỏng vấn (HR, Admin, và Internship Coordinators) -->
+    {% if is_hr_manager or is_internship_coordinator or is_admin %}
+      <li class="menu-item {% if request.path == '/lichphongvan/' %}active{% endif %}">
+        <a href="{% url 'lichphongvan' %}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-calendar"></i>
           <div class="text-truncate" data-i18n="Basic">Lịch Phỏng vấn</div>
         </a>
       </li>
-      <!-- Chương trình Đào tạo -->
-      <li class="menu-item">
-        <a href="cards-basic.html" class="menu-link">
+    {% endif %}
+
+    <!-- Chương trình Đào tạo (HR, Admin, và Internship Coordinators) -->
+    {% if is_hr_manager or is_internship_coordinator or is_admin %}
+      <li class="menu-item {% if request.path == '/chuongtrinhdaotao/' %}active{% endif %}">
+        <a href="{% url 'chuongtrinhdaotao' %}" class="menu-link">
           <i class="menu-icon tf-icons bx bxs-graduation"></i>
           <div class="text-truncate" data-i18n="Basic">Chương trình Đào tạo</div>
         </a>
       </li>
-      <!-- Theo dõi Hiệu suất -->
-      <li class="menu-item">
-        <a href="cards-basic.html" class="menu-link">
+    {% endif %}
+
+    <!-- Theo dõi Hiệu suất (HR, Admin, Mentors, và Internship Coordinators) -->
+    {% if is_hr_manager or is_mentor or is_internship_coordinator or is_admin %}
+      <li class="menu-item {% if request.path == '/theodoihieusuat/' %}active{% endif %}">
+        <a href="{% url 'theodoihieusuat' %}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-line-chart"></i>
           <div class="text-truncate" data-i18n="Basic">Theo dõi Hiệu suất</div>
         </a>
       </li>
-      <!-- Giao tiếp & Phản hồi -->
-      <li class="menu-item">
-        <a href="cards-basic.html" class="menu-link">
-          <i class="menu-icon tf-icons bx bx-message-square-dots"></i>
-          <div class="text-truncate" data-i18n="Basic">Giao tiếp & Phản hồi</div>
-        </a>
-      </li>
-      <!-- Quản lý Hồ sơ -->
-      <li class="menu-item">
-        <a href="cards-basic.html" class="menu-link">
+    {% endif %}
+
+    <!-- Giao tiếp & Phản hồi (Tất cả người dùng) -->
+    <li class="menu-item {% if request.path == '/giaotiepvaphanhoi/' %}active{% endif %}">
+      <a href="{% url 'giaotiepvaphanhoi' %}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-message-square-dots"></i>
+        <div class="text-truncate" data-i18n="Basic">Giao tiếp & Phản hồi</div>
+      </a>
+    </li>
+
+    <!-- Quản lý Hồ sơ (HR, Admin, và Internship Coordinators) -->
+    {% if is_hr_manager or is_internship_coordinator or is_admin %}
+      <li class="menu-item {% if request.path == '/quanlyhoso/' %}active{% endif %}">
+        <a href="{% url 'quanlyhoso' %}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-folder"></i>
           <div class="text-truncate" data-i18n="Basic">Quản lý Hồ sơ</div>
         </a>
       </li>
-      <!-- Báo cáo & Phân tích -->
-      <li class="menu-item">
-        <a href="cards-basic.html" class="menu-link">
+    {% endif %}
+
+    <!-- Báo cáo & Phân tích (HR và Admin) -->
+    {% if is_hr_manager or is_admin %}
+      <li class="menu-item {% if request.path == '/baocaovaphantich/' %}active{% endif %}">
+        <a href="{% url 'baocaovaphantich' %}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-bar-chart-alt-2"></i>
           <div class="text-truncate" data-i18n="Basic">Báo cáo & Phân tích</div>
         </a>
       </li>
-      <!-- Cấu hình Hệ thống -->
+    {% endif %}
+
+    <!-- Cấu hình Hệ thống (Chỉ Admin) -->
+    {% if is_admin %}
       <li class="menu-item {% if request.path == '/cauhinhhethong/' %}active{% endif %}">
         <a href="{% url 'cauhinhhethong' %}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-cog"></i>
           <div class="text-truncate" data-i18n="Basic">Cấu hình Hệ thống</div>
         </a>
       </li>
-      <!-- Bảo mật & Quyền hạn -->
+    {% endif %}
+
+    <!-- Bảo mật & Quyền hạn (Chỉ Admin) -->
+    {% if is_admin %}
       <li class="menu-item {% if request.path == '/baomatvaquyenhan/' %}active{% endif %}">
         <a href="{% url 'baomatvaquyenhan' %}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-lock-alt"></i>
           <div class="text-truncate" data-i18n="Basic">Bảo mật & Quyền hạn</div>
         </a>
       </li>
-    </ul>
-  </aside>
+    {% endif %}
+  </ul>
+</aside>
 
-  <!-- Bootstrap JS và dependencies -->
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+<!-- Bootstrap JS và dependencies -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>

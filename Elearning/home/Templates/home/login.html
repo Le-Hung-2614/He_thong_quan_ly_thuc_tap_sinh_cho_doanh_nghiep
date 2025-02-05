@@ -165,6 +165,16 @@
             <p class="text-center">
                 Quản lý chương trình thực tập của bạn một cách hiệu quả với các công cụ mạnh mẽ của chúng tôi.
             </p>
+
+            <!-- Hiển thị thông báo lỗi -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
             <form method="post">
                 {% csrf_token %}
                 <div class="form-group">
@@ -176,7 +186,7 @@
                     <input type="password" class="form-control" id="password" name="password" placeholder="Nhập mật khẩu" required>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="rememberMe">
+                    <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe">
                     <label class="form-check-label" for="rememberMe">Ghi nhớ đăng nhập</label>
                 </div>
                 <button type="submit" class="btn btn-primary">Đăng Nhập</button>
