@@ -162,30 +162,26 @@
         {% endif %}
 
         <!-- Form tạo chiến dịch tuyển dụng -->
-        <form method="post" action="{% url 'create_job_post' %}">
-          {% csrf_token %}
-          <div class="mb-3">
-            <label for="jobPostTitle" class="form-label">Tiêu đề Bài Đăng</label>
-            <input type="text" class="form-control" id="jobPostTitle" name="jobPostTitle" placeholder="Nhập tiêu đề bài đăng" required>
-          </div>
-          <div class="mb-3">
-            <label for="jobPostDescription" class="form-label">Mô tả Bài Đăng</label>
-            <textarea class="form-control" id="jobPostDescription" name="jobPostDescription" rows="3" placeholder="Nhập mô tả bài đăng" required></textarea>
-          </div>
-          <div class="mb-3">
-            <label for="jobPostPlatform" class="form-label">Nền tảng Đăng Bài</label>
-            <select class="form-select" id="jobPostPlatform" name="jobPostPlatform" required>
-              <option value="website">Trang web Công ty</option>
-              <option value="linkedin">LinkedIn</option>
-              <option value="indeed">Indeed</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="deadline" class="form-label">Hạn nộp hồ sơ</label>
-            <input type="date" class="form-control" id="deadline" name="deadline" required>
-          </div>
-          <button type="submit" class="btn btn-success">Tạo Chiến dịch</button>
-        </form>
+      <form method="post" action="{% url 'create_recruitment' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="position" class="form-label">Vị trí tuyển dụng</label>
+          <input type="text" class="form-control" id="position" name="position" placeholder="Nhập vị trí tuyển dụng" required>
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Mô tả công việc</label>
+          <textarea class="form-control" id="description" name="description" rows="3" placeholder="Nhập mô tả công việc" required></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="requirements" class="form-label">Yêu cầu</label>
+          <textarea class="form-control" id="requirements" name="requirements" rows="3" placeholder="Nhập yêu cầu công việc" required></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="deadline" class="form-label">Hạn nộp hồ sơ</label>
+          <input type="date" class="form-control" id="deadline" name="deadline" required>
+        </div>
+        <button type="submit" class="btn btn-success">Tạo Chiến dịch</button>
+      </form>
       </div>
     </div>
 

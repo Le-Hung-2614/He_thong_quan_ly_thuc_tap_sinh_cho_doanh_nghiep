@@ -27,6 +27,7 @@ urlpatterns = [
     path('baocaovaphantich/', views.baocaovaphantich, name='baocaovaphantich'),
     path('cauhinhhethong/', views.cauhinhhethong, name='cauhinhhethong'),
     path('baomatvaquyenhan/', views.baomatvaquyenhan, name='baomatvaquyenhan'),
+    path('create-recruitment/', views.create_recruitment, name='create_recruitment'),
 
     # Nhóm chức năng cá nhân
     path('myprofile/', views.myprofile, name='myprofile'),

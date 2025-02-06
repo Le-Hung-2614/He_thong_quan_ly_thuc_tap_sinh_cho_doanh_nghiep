@@ -103,9 +103,27 @@ class Recruitment(models.Model):
         super().save(*args, **kwargs)
 
     def clean(self):
-        # Kiểm tra nếu deadline nhỏ hơn ngày hiện tại
-        if self.deadline and self.deadline < timezone.now().date():
-            raise ValidationError("Ngày hết hạn không được nhỏ hơn ngày hiện tại.")
+        # Lấy ngày hiện tại
+        current_date = timezone.now().date()
+        
+        # Kiểm tra deadline không được ở quá khứ
+        if self.deadline < current_date:
+            raise ValidationError({
+                'deadline': "Hạn nộp không được ở trong quá khứ."
+            })
+            
+        # Kiểm tra deadline phải sau ngày đăng
+        if self.pk:  # Nếu đã tồn tại trong DB
+            posted_date = self.posted_date.date()
+            if self.deadline < posted_date:
+                raise ValidationError({
+                    'deadline': "Hạn nộp phải sau ngày đăng bài."
+                })
+        else:  # Trường hợp tạo mới
+            if self.deadline < current_date:
+                raise ValidationError({
+                    'deadline': "Hạn nộp phải sau ngày đăng bài."
+                })
 
     def get_absolute_url(self):
         return reverse('recruitment_detail', args=[str(self.id)])

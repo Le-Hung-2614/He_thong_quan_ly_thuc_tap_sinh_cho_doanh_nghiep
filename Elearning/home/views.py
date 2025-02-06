@@ -85,7 +85,6 @@ def home(request):
 def is_hr(user):
     return user.groups.filter(name='HR Managers').exists()
 
-# Trang quản lý tuyển dụng (chỉ HR và Admin)
 @user_passes_test(lambda u: is_hr(u) or u.is_superuser)
 def quanlituyendung(request):
     if request.method == 'POST':
@@ -93,36 +92,39 @@ def quanlituyendung(request):
         if form.is_valid():
             recruitment = form.save(commit=False)
             recruitment.posted_by = request.user
-            try:
-                recruitment.full_clean()  # Kiểm tra validation trước khi lưu
-                recruitment.save()
-                messages.success(request, 'Chiến dịch tuyển dụng đã được tạo thành công.')
-                return redirect('quanlituyendung')
-            except ValidationError as e:
-                # Hiển thị lỗi validation cho người dùng
-                for field, errors in e.message_dict.items():
-                    for error in errors:
-                        messages.error(request, f"{field}: {error}")
+            recruitment.full_clean()  # Gọi clean để kiểm tra validation
+            recruitment.save()
+            messages.success(request, '✅ Tạo chiến dịch thành công!')
+            return redirect('quanlituyendung')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"🚨 {field}: {error}")
     else:
         form = RecruitmentForm()
 
-    # Phân trang danh sách tuyển dụng
+    # Xử lý phân trang danh sách
     recruitments_list = Recruitment.objects.all().order_by('-posted_date')
-    paginator = Paginator(recruitments_list, 10)  # Hiển thị 10 chiến dịch trên mỗi trang
-    page_number = request.GET.get('page')  # Lấy số trang từ query parameter
-
+    
+    paginator = Paginator(recruitments_list, 10)  # 10 items per page
+    page = request.GET.get('page')
+    
     try:
-        recruitments = paginator.page(page_number)
+        recruitments = paginator.page(page)
     except PageNotAnInteger:
-        # Nếu page không phải là số nguyên, hiển thị trang đầu tiên
         recruitments = paginator.page(1)
     except EmptyPage:
-        # Nếu page vượt quá số trang có sẵn, hiển thị trang cuối cùng
         recruitments = paginator.page(paginator.num_pages)
 
-    context = get_user_groups_context(request.user)
-    context['recruitments'] = recruitments
-    context['form'] = form
+    # Chuẩn bị context
+    context = {
+        'form': form,
+        'recruitments': recruitments,
+        'current_page': page,
+        'total_pages': paginator.num_pages,
+    }
+    context.update(get_user_groups_context(request.user))
+    
     return render(request, 'Quanlituyendung/quanlituyendung.html', context)
 
 # Trang lịch phỏng vấn (chỉ HR, Admin, và Internship Coordinators)
@@ -776,3 +778,24 @@ def manage_permissions(request):
             messages.error(request, 'Người dùng không tồn tại.')
         return redirect('quanlituyendung')  # Chuyển hướng về trang quản lý tuyển dụng
     return render(request, 'manage_permissions.html')  # Hiển thị form quản lý quyền truy cập
+
+def create_recruitment(request):
+    if request.method == 'POST':
+        position = request.POST.get('position')
+        description = request.POST.get('description')
+        requirements = request.POST.get('requirements')
+        deadline = request.POST.get('deadline')
+        
+        try:
+            Recruitment.objects.create(
+                position=position,
+                description=description,
+                requirements=requirements,
+                deadline=deadline,
+                posted_by=request.user
+            )
+            messages.success(request, 'Chiến dịch tuyển dụng đã được tạo thành công.')
+        except Exception as e:
+            messages.error(request, f'Lỗi khi tạo chiến dịch: {str(e)}')
+        
+        return redirect('quanlituyendung')
