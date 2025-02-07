@@ -85,8 +85,10 @@ def home(request):
 def is_hr(user):
     return user.groups.filter(name='HR Managers').exists()
 
+@login_required
 @user_passes_test(lambda u: is_hr(u) or u.is_superuser)
 def quanlituyendung(request):
+    # Xử lý form tạo chiến dịch tuyển dụng
     if request.method == 'POST':
         form = RecruitmentForm(request.POST)
         if form.is_valid():
@@ -103,9 +105,8 @@ def quanlituyendung(request):
     else:
         form = RecruitmentForm()
 
-    # Xử lý phân trang danh sách
+    # Xử lý phân trang danh sách chiến dịch tuyển dụng
     recruitments_list = Recruitment.objects.all().order_by('-posted_date')
-    
     paginator = Paginator(recruitments_list, 10)  # 10 items per page
     page = request.GET.get('page')
     
@@ -116,12 +117,38 @@ def quanlituyendung(request):
     except EmptyPage:
         recruitments = paginator.page(paginator.num_pages)
 
+    # Xử lý tìm kiếm và lọc ứng viên
+    candidates = Candidate.objects.all()
+    candidate_search = request.GET.get('candidateSearch', '')
+    candidate_filter = request.GET.get('candidateFilter', 'all')
+
+    # Tìm kiếm ứng viên theo tên
+    if candidate_search:
+        candidates = candidates.filter(name__icontains=candidate_search)
+
+    # Lọc ứng viên theo trạng thái
+    if candidate_filter == 'new':
+        candidates = candidates.filter(status='new')
+    elif candidate_filter == 'interviewed':
+        candidates = candidates.filter(status='interviewed')
+
+    # Phân trang danh sách ứng viên
+    candidate_paginator = Paginator(candidates, 10)  # 10 ứng viên mỗi trang
+    candidate_page = request.GET.get('candidate_page')
+    try:
+        candidates = candidate_paginator.page(candidate_page)
+    except PageNotAnInteger:
+        candidates = candidate_paginator.page(1)
+    except EmptyPage:
+        candidates = candidate_paginator.page(candidate_paginator.num_pages)
+
     # Chuẩn bị context
     context = {
         'form': form,
         'recruitments': recruitments,
-        'current_page': page,
-        'total_pages': paginator.num_pages,
+        'candidates': candidates,
+        'candidate_search': candidate_search,
+        'candidate_filter': candidate_filter,
     }
     context.update(get_user_groups_context(request.user))
     
@@ -799,3 +826,71 @@ def create_recruitment(request):
             messages.error(request, f'Lỗi khi tạo chiến dịch: {str(e)}')
         
         return redirect('quanlituyendung')
+    
+@login_required
+def manage_candidates(request):
+    candidates = Candidate.objects.all()
+
+    # Tìm kiếm
+    candidate_search = request.GET.get('candidateSearch', '')
+    if candidate_search:
+        candidates = candidates.filter(name__icontains=candidate_search)
+
+    # Lọc
+    candidate_filter = request.GET.get('candidateFilter', 'all')
+    if candidate_filter == 'new':
+        candidates = candidates.filter(status='new')
+    elif candidate_filter == 'interviewed':
+        candidates = candidates.filter(status='interviewed')
+
+    # Phân trang
+    paginator = Paginator(candidates, 10)  # 10 ứng viên mỗi trang
+    page_number = request.GET.get('page')
+    candidates = paginator.get_page(page_number)
+
+    context = {
+        'candidates': candidates,
+        'candidate_search': candidate_search,
+        'candidate_filter': candidate_filter,
+    }
+    return render(request, 'manage_candidates.html', context)
+
+@login_required
+def schedule_interview(request):
+    if request.method == 'POST':
+        candidate_id = request.POST.get('interviewCandidate')
+        interview_date = request.POST.get('interviewDate')
+        interview_time = request.POST.get('interviewTime')
+        candidate = get_object_or_404(Candidate, id=candidate_id)
+
+        # Tạo lịch phỏng vấn
+        Interview.objects.create(
+            candidate=candidate,
+            interview_date=interview_date,
+            interview_time=interview_time,
+            interviewer=request.user
+        )
+        messages.success(request, 'Lịch phỏng vấn đã được tạo thành công.')
+        return redirect('manage_candidates')
+
+    return redirect('manage_candidates')  # Nếu không phải POST, chuyển hướng về danh sách ứng viên
+
+@login_required
+def evaluate_candidate(request, candidate_id):
+    candidate = get_object_or_404(Candidate, id=candidate_id)
+
+    if request.method == 'POST':
+        evaluation_score = request.POST.get('evaluationScore')
+        comments = request.POST.get('candidateEvaluation')
+
+        # Tạo đánh giá ứng viên
+        CandidateEvaluation.objects.create(
+            candidate=candidate,
+            evaluator=request.user,
+            score=evaluation_score,
+            comments=comments
+        )
+        messages.success(request, 'Đánh giá đã được lưu thành công.')
+        return redirect('manage_candidates')
+
+    return redirect('manage_candidates') 

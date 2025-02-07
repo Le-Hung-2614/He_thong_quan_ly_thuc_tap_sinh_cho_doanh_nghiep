@@ -46,6 +46,11 @@ urlpatterns = [
     path('tasks/<int:pk>/update/', views.task_update, name='task_update'),
     path('tasks/<int:pk>/delete/', views.task_delete, name='task_delete'),
 
+    # Quản lý ứng viên
+    path('manage_candidates/', views.manage_candidates, name='manage_candidates'),
+    path('schedule_interview/', views.schedule_interview, name='schedule_interview'),
+    path('evaluate_candidate/<int:candidate_id>/', views.evaluate_candidate, name='evaluate_candidate'),
+
     # Quản lý phản hồi
     path('feedbacks/', views.feedback_list, name='feedback_list'),
     path('feedbacks/<int:pk>/', views.feedback_detail, name='feedback_detail'),

@@ -3,7 +3,7 @@ from django.utils.html import format_html
 from .models import (
     Department, Intern, Recruitment, TrainingProgram, Performance,
     Feedback, Task, Project, Attendance, Report, Event, Notification,
-    JobPost, Candidate, Interview, CandidateEvaluation, UserPermission, Integration
+    JobPost, Candidate, Interview, CandidateEvaluation, UserPermission, Integration,
 )
 
 # Custom Admin Actions
@@ -141,18 +141,10 @@ class AttendanceAdmin(admin.ModelAdmin):
 @admin.register(Report)
 class ReportAdmin(admin.ModelAdmin):
     list_display = ('intern', 'title', 'submitted_date', 'reviewed_by', 'is_final')
-    search_fields = ('intern__full_name', 'title', 'content')
     list_filter = ('submitted_date', 'is_final')
-    list_per_page = 20
-    fieldsets = (
-        ('Thông tin báo cáo', {
-            'fields': ('intern', 'title', 'content', 'is_final')
-        }),
-        ('Thông tin đánh giá', {
-            'fields': ('reviewed_by', 'review_date', 'review_notes')
-        }),
-    )
     readonly_fields = ('submitted_date',)
+    search_fields = ('title', 'intern__full_name')
+    date_hierarchy = 'submitted_date'
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):

@@ -86,7 +86,7 @@ class Recruitment(models.Model):
     position = models.CharField(max_length=200, verbose_name="Vị trí tuyển dụng")
     slug = models.SlugField(unique=True, blank=True, verbose_name="Slug")
     description = models.TextField(verbose_name="Mô tả công việc")
-    requirements = models.TextField(verbose_name="Yêu cầu")
+    requirements = models.TextField(verbose_name="Yêu cầu")  # Sửa ở đây
     location = models.CharField(max_length=200, blank=True, null=True, verbose_name="Địa điểm")
     salary_range = models.CharField(max_length=100, blank=True, null=True, verbose_name="Mức lương")
     posted_by = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Người đăng", related_name="recruitments")
@@ -130,6 +130,15 @@ class Recruitment(models.Model):
 
     def days_remaining(self):
         return (self.deadline - timezone.now().date()).days
+
+    def get_status(self):
+        current_date = timezone.now().date()
+        if self.is_active:
+            if self.deadline >= current_date:
+                return "Đang hoạt động"
+            else:
+                return "Đã đóng"
+        return "Đã đóng"
 
     class Meta:
         verbose_name = "Tuyển dụng"
@@ -475,3 +484,11 @@ class Report(models.Model):
         verbose_name = "Báo cáo"
         verbose_name_plural = "Báo cáo"
         ordering = ['-submitted_date']
+
+
+class InternshipOffer(models.Model):
+    candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE)
+    content = models.TextField()
+    sent_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    sent_date = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=20, choices=[('pending', 'Pending'), ('accepted', 'Accepted'), ('rejected', 'Rejected')], default='pending')
