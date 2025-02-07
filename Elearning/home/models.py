@@ -418,12 +418,13 @@ class Candidate(models.Model):
     def __str__(self):
         return self.name
 
-
 class Interview(models.Model):
     candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE, verbose_name="Ứng viên")
     interview_date = models.DateField(verbose_name="Ngày phỏng vấn")
     interview_time = models.TimeField(verbose_name="Thời gian phỏng vấn")
     interviewer = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Người phỏng vấn")
+    location = models.CharField(max_length=200, verbose_name="Địa điểm", blank=True, null=True)  # Thêm trường location
+    notes = models.TextField(verbose_name="Ghi chú", blank=True, null=True)  # Thêm trường notes
 
     def __str__(self):
         return f"Phỏng vấn {self.candidate.name} vào {self.interview_date}"

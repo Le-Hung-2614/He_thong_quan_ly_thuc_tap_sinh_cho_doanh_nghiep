@@ -128,95 +128,56 @@
   <div class="container mt-5">
     <!-- Lịch Phỏng vấn -->
     <div class="card">
-      <div class="card-header">
-        <h5 class="card-title">Lịch Phỏng vấn</h5>
-      </div>
-      <div class="card-body">
-        <!-- Form lên lịch phỏng vấn -->
-        <form id="interviewScheduleForm">
-          <div class="mb-3">
-            <label for="interviewDate" class="form-label">Ngày Phỏng vấn</label>
-            <input type="date" class="form-control" id="interviewDate" required>
-          </div>
-          <div class="mb-3">
-            <label for="interviewTime" class="form-label">Thời gian Phỏng vấn</label>
-            <input type="time" class="form-control" id="interviewTime" required>
-          </div>
-          <div class="mb-3">
-            <label for="interviewCandidate" class="form-label">Ứng viên</label>
-            <select class="form-select" id="interviewCandidate" required>
-              <option value="">Chọn ứng viên</option>
-              <option value="Nguyễn Văn A">Nguyễn Văn A</option>
-              <option value="Trần Thị B">Trần Thị B</option>
-              <option value="Lê Văn C">Lê Văn C</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="interviewer" class="form-label">Người phỏng vấn</label>
-            <input type="text" class="form-control" id="interviewer" placeholder="Nhập tên người phỏng vấn" required>
-          </div>
-          <div class="mb-3">
-            <label for="interviewLocation" class="form-label">Địa điểm</label>
-            <input type="text" class="form-control" id="interviewLocation" placeholder="Nhập địa điểm phỏng vấn" required>
-          </div>
-          <div class="mb-3">
-            <label for="interviewNotes" class="form-label">Ghi chú</label>
-            <textarea class="form-control" id="interviewNotes" rows="3" placeholder="Nhập ghi chú (nếu có)"></textarea>
-          </div>
-          <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="sendNotification">
-            <label class="form-check-label" for="sendNotification">Gửi thông báo qua email/SMS</label>
-          </div>
-          <button type="submit" class="btn btn-success">Lên Lịch</button>
-          <button type="button" class="btn btn-warning" onclick="clearInterviewForm()">Hủy</button>
-        </form>
-
-        <!-- Danh sách lịch phỏng vấn -->
-        <div class="mt-4">
-          <h6>Danh sách Lịch Phỏng vấn</h6>
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>Ngày</th>
-                <th>Thời gian</th>
-                <th>Ứng viên</th>
-                <th>Người phỏng vấn</th>
-                <th>Địa điểm</th>
-                <th>Trạng thái</th>
-                <th>Hành động</th>
-              </tr>
-            </thead>
-            <tbody id="interviewList">
-              <!-- Dữ liệu mẫu -->
-              <tr>
-                <td>2023-10-15</td>
-                <td>10:00</td>
-                <td>Nguyễn Văn A</td>
-                <td>Trần Thị B</td>
-                <td>Phòng họp A</td>
-                <td>Đã lên lịch</td>
-                <td>
-                  <button class="btn btn-sm btn-primary" onclick="editInterview(0)">Sửa</button>
-                  <button class="btn btn-sm btn-danger" onclick="deleteInterview(0)">Xóa</button>
-                </td>
-              </tr>
-              <tr>
-                <td>2023-10-16</td>
-                <td>14:00</td>
-                <td>Lê Văn C</td>
-                <td>Phạm Thị D</td>
-                <td>Phòng họp B</td>
-                <td>Đã lên lịch</td>
-                <td>
-                  <button class="btn btn-sm btn-primary" onclick="editInterview(1)">Sửa</button>
-                  <button class="btn btn-sm btn-danger" onclick="deleteInterview(1)">Xóa</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="card-header">
+            <h5 class="card-title">Lịch Phỏng vấn</h5>
         </div>
+        <div class="card-body">
+            <!-- Form lên lịch phỏng vấn -->
+            <form method="post" action="{% url 'schedule_interview' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-success">Lên Lịch</button>
+                <button type="button" class="btn btn-warning" onclick="clearInterviewForm()">Hủy</button>
+            </form>
+
+            <!-- Danh sách lịch phỏng vấn -->
+            <div class="mt-4">
+                <h6>Danh sách Lịch Phỏng vấn</h6>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Ngày</th>
+                            <th>Thời gian</th>
+                            <th>Ứng viên</th>
+                            <th>Người phỏng vấn</th>
+                            <th>Địa điểm</th>
+                            <th>Trạng thái</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for interview in interviews %}
+                        <tr>
+                            <td>{{ interview.interview_date }}</td>
+                            <td>{{ interview.interview_time }}</td>
+                            <td>{{ interview.candidate.name }}</td>
+                            <td>{{ interview.interviewer.username }}</td>
+                            <td>{{ interview.location }}</td>
+                            <td>{{ interview.status }}</td>
+                            <td>
+                                <a href="{% url 'edit_interview' interview.pk %}" class="btn btn-sm btn-primary">Sửa</a>
+                                <form action="{% url 'delete_interview' interview.pk %}" method="post" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                  </table>
+              </div>
+          </div>
       </div>
-    </div>
   </div>
 
   <!-- Bootstrap JS and dependencies -->

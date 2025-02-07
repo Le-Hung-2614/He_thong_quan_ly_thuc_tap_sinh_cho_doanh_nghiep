@@ -62,11 +62,11 @@ WSGI_APPLICATION = 'Elearning.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'data',  # Tên database
-        'USER': 'root',      # Tên người dùng database
-        'PASSWORD': '123456',  # Mật khẩu database
-        'HOST': 'localhost',  # Host database
-        'PORT': '3306',      # Port database
+        'NAME': 'db',  
+        'USER': 'root',      
+        'PASSWORD': 'root',  
+        'HOST': '127.0.0.1',  
+        'PORT': '3306',      
     }
 }
 

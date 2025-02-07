@@ -86,6 +86,12 @@ urlpatterns = [
     path('quanlituyendung/generate-report/', views.generate_report, name='generate_report'),
     path('quanlituyendung/integrate-system/', views.integrate_system, name='integrate_system'),
     path('quanlituyendung/manage-permissions/', views.manage_permissions, name='manage_permissions'),
+
+    # Lịch phỏng vấn
+    path('lichphongvan/', views.interview_list, name='lichphongvan'),
+    path('lichphongvan/schedule/', views.schedule_interview, name='schedule_interview'),
+    path('lichphongvan/edit/<int:pk>/', views.edit_interview, name='edit_interview'),
+    path('lichphongvan/delete/<int:pk>/', views.delete_interview, name='delete_interview'),
 ]
 
 # Phục vụ file media trong môi trường DEBUG

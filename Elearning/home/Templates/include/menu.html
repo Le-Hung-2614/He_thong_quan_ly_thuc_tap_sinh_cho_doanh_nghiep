@@ -28,7 +28,7 @@
 
     <!-- Lịch Phỏng vấn (HR, Admin, và Internship Coordinators) -->
     {% if is_hr_manager or is_internship_coordinator or is_admin %}
-      <li class="menu-item {% if request.path == '/lichphongvan/' %}active{% endif %}">
+      <li class="menu-item {% if request.path == '/lichphongvan/' or request.path == '/lichphongvan/schedule/' %}active{% endif %}">
         <a href="{% url 'lichphongvan' %}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-calendar"></i>
           <div class="text-truncate" data-i18n="Basic">Lịch Phỏng vấn</div>

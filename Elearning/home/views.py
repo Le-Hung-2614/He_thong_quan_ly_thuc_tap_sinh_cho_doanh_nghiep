@@ -1,4 +1,3 @@
-# home/views.py
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
@@ -22,6 +21,7 @@ from django import forms
 from .utils import get_user_groups_context
 from .forms import RecruitmentForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from .forms import InterviewForm
 
 logger = logging.getLogger(__name__)
 
@@ -732,23 +732,8 @@ def manage_candidates(request):
     context = {
         'candidates': candidates,
     }
-    return render(request, 'quanlituyendung.html', context)
+    return render(request, 'Lichphongvan/manage_candidates.html', context)
 
-@login_required
-def schedule_interview(request):
-    if request.method == 'POST':
-        candidate_id = request.POST.get('interviewCandidate')
-        interview_date = request.POST.get('interviewDate')
-        interview_time = request.POST.get('interviewTime')
-        candidate = Candidate.objects.get(id=candidate_id)
-        Interview.objects.create(
-            candidate=candidate,
-            interview_date=interview_date,
-            interview_time=interview_time,
-            interviewer=request.user
-        )
-        messages.success(request, 'Lịch phỏng vấn đã được tạo thành công.')
-        return redirect('quanlituyendung')
 
 @login_required
 def evaluate_candidate(request):
@@ -858,22 +843,25 @@ def manage_candidates(request):
 @login_required
 def schedule_interview(request):
     if request.method == 'POST':
-        candidate_id = request.POST.get('interviewCandidate')
-        interview_date = request.POST.get('interviewDate')
-        interview_time = request.POST.get('interviewTime')
-        candidate = get_object_or_404(Candidate, id=candidate_id)
+        form = InterviewForm(request.POST)
+        if form.is_valid():
+            interview = form.save(commit=False)
+            interview.interviewer = request.user
+            interview.save()
+            messages.success(request, 'Lịch phỏng vấn đã được tạo thành công!')
+            return redirect('schedule_interview')
+    else:
+        form = InterviewForm()
 
-        # Tạo lịch phỏng vấn
-        Interview.objects.create(
-            candidate=candidate,
-            interview_date=interview_date,
-            interview_time=interview_time,
-            interviewer=request.user
-        )
-        messages.success(request, 'Lịch phỏng vấn đã được tạo thành công.')
-        return redirect('manage_candidates')
-
-    return redirect('manage_candidates')  # Nếu không phải POST, chuyển hướng về danh sách ứng viên
+    candidates = Candidate.objects.all()
+    context = {
+        'form': form,
+        'candidates': candidates,
+        'is_hr_manager': request.user.groups.filter(name='HR Managers').exists(),
+        'is_internship_coordinator': request.user.groups.filter(name='Internship Coordinators').exists(),
+        'is_admin': request.user.is_superuser,
+    }
+    return render(request, 'Lichphongvan/lichphongvan.html', context)
 
 @login_required
 def evaluate_candidate(request, candidate_id):
@@ -894,3 +882,41 @@ def evaluate_candidate(request, candidate_id):
         return redirect('manage_candidates')
 
     return redirect('manage_candidates') 
+
+@login_required
+def interview_list(request):
+    interviews = Interview.objects.all().order_by('-interview_date')
+    context = {
+        'interviews': interviews,
+    }
+    return render(request, 'Lichphongvan/lichphongvan.html', context)
+
+@login_required
+def edit_interview(request, pk):
+    interview = get_object_or_404(Interview, pk=pk)
+    if request.method == 'POST':
+        form = InterviewForm(request.POST, instance=interview)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Lịch phỏng vấn đã được cập nhật thành công!')
+            return redirect('schedule_interview')
+    else:
+        form = InterviewForm(instance=interview)
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'Lichphongvan/edit_interview.html', context)
+
+@login_required
+def delete_interview(request, pk):
+    interview = get_object_or_404(Interview, pk=pk)
+    if request.method == 'POST':
+        interview.delete()
+        messages.success(request, 'Lịch phỏng vấn đã được xóa thành công!')
+        return redirect('schedule_interview')
+
+    context = {
+        'interview': interview,
+    }
+    return render(request, 'Lichphongvan/delete_interview.html', context)
