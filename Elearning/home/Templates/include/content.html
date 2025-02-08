@@ -9,6 +9,12 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .small-chart {
+      width: 100%; /* Chiều rộng 100% của container */
+      height: 300px; /* Chiều cao cố định */
+    }
+  </style>
 </head>
 <body>
   <div class="container-xxl flex-grow-1 container-p-y">
@@ -19,9 +25,23 @@
           <div class="d-flex align-items-start row">
             <div class="col-sm-7">
               <div class="card-body">
-                <h5 class="card-title text-primary mb-3">Chúc mừng Quản lý! 🎉</h5>
-                <p class="mb-3">Bạn đã hoàn thành 80% công việc hôm nay!</p>
-                <p class="mb-3">Bạn đã còn 20% công việc hôm nay!</p>
+                <h5 class="card-title text-primary mb-3">
+                  {% if is_admin %}
+                    Chúc mừng Admin! 🎉
+                  {% elif is_hr_manager %}
+                    Chúc mừng Quản lý Nhân sự! 🎉
+                  {% elif is_intern %}
+                    Chúc mừng Thực tập sinh! 🎉
+                  {% elif is_internship_coordinator %}
+                    Chúc mừng Điều phối viên Thực tập! 🎉
+                  {% elif is_mentor %}
+                    Chúc mừng Người hướng dẫn! 🎉
+                  {% else %}
+                    Chúc mừng! 🎉
+                  {% endif %}
+                </h5>
+                <p class="mb-3">Bạn đã hoàn thành {{ completed_tasks }} công việc hôm nay!</p>
+                <p class="mb-3">Bạn còn {{ remaining_tasks }} công việc hôm nay!</p>
                 <a href="javascript:;" class="btn btn-sm btn-outline-primary">Xem huy hiệu</a>
                 <a href="javascript:;" class="btn btn-sm btn-outline-primary">Bắt đầu công việc còn lại</a>
               </div>
@@ -36,7 +56,7 @@
       </div>
 
       <!-- Phần lấp đầy khoảng trống -->
-      <div class="col-12 col-md-4  mb-4">
+      <div class="col-12 col-md-4 mb-4">
         <div class="row">
           <!-- Thêm Card thông báo hoặc thông tin nhanh -->
           <div class="col-12 mb-4">
@@ -94,7 +114,7 @@
                     </div>
                     <div>
                       <h6 class="mb-0">Sinh viên đang hoạt động</h6>
-                      <small class="text-muted">50</small>
+                      <small class="text-muted">{{ active_interns }}</small>
                     </div>
                   </li>
                   <li class="d-flex mb-3">
@@ -103,7 +123,7 @@
                     </div>
                     <div>
                       <h6 class="mb-0">Chương trình đào tạo</h6>
-                      <small class="text-muted">25</small>
+                      <small class="text-muted">{{ training_programs }}</small>
                     </div>
                   </li>
                   <li class="d-flex">
@@ -112,7 +132,7 @@
                     </div>
                     <div>
                       <h6 class="mb-0">Tỷ lệ hoàn thành công việc</h6>
-                      <small class="text-muted">80%</small>
+                      <small class="text-muted">{{ completion_rate }}%</small>
                     </div>
                   </li>
                 </ul>
@@ -132,33 +152,17 @@
               </div>
               <div class="card-body">
                 <ul class="list-unstyled mb-0">
+                  {% for notification in latest_notifications %}
                   <li class="d-flex mb-3">
                     <div class="avatar flex-shrink-0 me-3">
-                      <span class="avatar-initial rounded bg-label-warning"><i class="bx bx-alarm bx-sm"></i></span>
+                      <span class="avatar-initial rounded bg-label-{{ notification.notification_type }}"><i class="bx bx-{{ notification.icon }} bx-sm"></i></span>
                     </div>
                     <div>
-                      <h6 class="mb-1">Cuộc họp sắp tới</h6>
-                      <small class="text-muted">10:00 AM - Phòng họp A</small>
+                      <h6 class="mb-1">{{ notification.title }}</h6>
+                      <small class="text-muted">{{ notification.created_at|timesince }} trước</small>
                     </div>
                   </li>
-                  <li class="d-flex mb-3">
-                    <div class="avatar flex-shrink-0 me-3">
-                      <span class="avatar-initial rounded bg-label-info"><i class="bx bx-message-alt bx-sm"></i></span>
-                    </div>
-                    <div>
-                      <h6 class="mb-1">Phản hồi từ mentor</h6>
-                      <small class="text-muted">5 phản hồi mới</small>
-                    </div>
-                  </li>
-                  <li class="d-flex">
-                    <div class="avatar flex-shrink-0 me-3">
-                      <span class="avatar-initial rounded bg-label-success"><i class="bx bx-task bx-sm"></i></span>
-                    </div>
-                    <div>
-                      <h6 class="mb-1">Công việc ưu tiên</h6>
-                      <small class="text-muted">Hoàn thành báo cáo tháng</small>
-                    </div>
-                  </li>
+                  {% endfor %}
                 </ul>
               </div>
             </div>
@@ -181,8 +185,8 @@
                     <span class="avatar-initial rounded bg-label-success"><i class="bx bx-check-circle bx-sm"></i></span>
                   </div>
                 </div>
-                <h4 class="card-title mb-0 mt-3">15/20</h4>
-                <small class="text-success fw-medium"><i class="bx bx-chevron-up"></i> 75%</small>
+                <h4 class="card-title mb-0 mt-3">{{ completed_tasks }}/{{ total_tasks }}</h4>
+                <small class="text-success fw-medium"><i class="bx bx-chevron-up"></i> {{ completion_rate }}%</small>
               </div>
             </div>
           </div>
@@ -200,7 +204,7 @@
                     <span class="avatar-initial rounded bg-label-primary"><i class="bx bx-user bx-sm"></i></span>
                   </div>
                 </div>
-                <h4 class="card-title mb-0 mt-3">50</h4>
+                <h4 class="card-title mb-0 mt-3">{{ active_interns }}</h4>
                 <small class="text-success fw-medium"><i class="bx bx-chevron-up"></i> 10%</small>
               </div>
             </div>
@@ -208,73 +212,14 @@
         </div>
       </div>
 
-      <!-- Thống kê trực quan hơn -->
+      <!-- Biểu đồ cột -->
       <div class="col-12 col-xxl-8 mb-4">
-        <div class="card">
-          <div class="row row-bordered g-0">
-            <div class="col-lg-8">
-              <div class="card-header d-flex align-items-center justify-content-between">
-                <div class="card-title mb-0">
-                  <h5 class="m-0 me-2">Thống Kê Năm 2024 So Với 2023</h5>
-                </div>
-                <div class="dropdown">
-                  <button class="btn p-0" type="button" id="totalRevenue" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="bx bx-dots-vertical-rounded bx-lg text-muted"></i>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="totalRevenue">
-                    <a class="dropdown-item" href="javascript:void(0);">Select All</a>
-                    <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
-                    <a class="dropdown-item" href="javascript:void(0);">Share</a>
-                  </div>
-                </div>
-              </div>
-              <div id="totalRevenueChart" class="px-3"></div>
-            </div>
-            <div class="col-lg-4 d-flex align-items-center">
-              <div class="card-body px-xl-9">
-                <div class="text-center mb-6">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-outline-primary">
-                      <script>document.write(new Date().getFullYear() - 1);</script>
-                    </button>
-                    <button type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-                      <span class="visually-hidden">Toggle Dropdown</span>
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="javascript:void(0);">2023</a></li>
-                      <li><a class="dropdown-item" href="javascript:void(0);">2022</a></li>
-                      <li><a class="dropdown-item" href="javascript:void(0);">2021</a></li>
-                    </ul>
-                  </div>
-                </div>
-
-                <!-- Tabs for switching between statistics -->
-                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="pills-intern-tab" data-bs-toggle="pill" data-bs-target="#pills-intern" type="button" role="tab" aria-controls="pills-intern" aria-selected="true">Intern Performance</button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-training-tab" data-bs-toggle="pill" data-bs-target="#pills-training" type="button" role="tab" aria-controls="pills-training" aria-selected="false">Training Program</button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-recruitment-tab" data-bs-toggle="pill" data-bs-target="#pills-recruitment" type="button" role="tab" aria-controls="pills-recruitment" aria-selected="false">Recruitment Metrics</button>
-                  </li>
-                </ul>
-
-                <!-- Tab content -->
-                <div class="tab-content" id="pills-tabContent">
-                  <div class="tab-pane fade show active" id="pills-intern" role="tabpanel" aria-labelledby="pills-intern-tab">
-                    <div id="internPerformanceChart"></div>
-                  </div>
-                  <div class="tab-pane fade" id="pills-training" role="tabpanel" aria-labelledby="pills-training-tab">
-                    <div id="trainingProgramChart"></div>
-                  </div>
-                  <div class="tab-pane fade" id="pills-recruitment" role="tabpanel" aria-labelledby="pills-recruitment-tab">
-                    <div id="recruitmentMetricsChart"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div class="card h-100">
+          <div class="card-header">
+            <h5 class="card-title mb-0">Tiến độ công việc</h5>
+          </div>
+          <div class="card-body">
+            <canvas id="barChart" class="small-chart"></canvas>
           </div>
         </div>
       </div>
@@ -287,18 +232,12 @@
               <div class="card-body">
                 <h5 class="card-title mb-4">Nhiệm vụ chính</h5>
                 <ul class="list-group list-group-flush">
+                  {% for task in main_tasks %}
                   <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Phỏng vấn 5 ứng viên
-                    <span class="badge bg-primary rounded-pill">50%</span>
+                    {{ task.title }}
+                    <span class="badge bg-{{ task.status_color }} rounded-pill">{{ task.progress }}%</span>
                   </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Đánh giá tiến độ nhóm A
-                    <span class="badge bg-warning rounded-pill">30%</span>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Hoàn thành báo cáo tháng
-                    <span class="badge bg-success rounded-pill">80%</span>
-                  </li>
+                  {% endfor %}
                 </ul>
                 <div class="mt-3">
                   <a href="javascript:;" class="btn btn-sm btn-outline-primary">Xem chi tiết</a>
@@ -318,8 +257,8 @@
           <div class="card-body">
             <canvas id="donutChart"></canvas>
             <div class="text-center mt-3">
-              <p class="mb-1">Tổng số chương trình: <strong>25</strong></p>
-              <p class="mb-0">Hoàn thành: <strong>20</strong></p>
+              <p class="mb-1">Tổng số chương trình: <strong>{{ training_programs }}</strong></p>
+              <p class="mb-0">Hoàn thành: <strong>{{ completed_training_programs }}</strong></p>
             </div>
           </div>
         </div>
@@ -339,7 +278,7 @@
       data: {
         labels: ['Hoàn thành', 'Chưa hoàn thành'],
         datasets: [{
-          data: [20, 5],
+          data: [{{ completed_training_programs }}, {{ remaining_training_programs }}],
           backgroundColor: ['#4caf50', '#ff6384'],
         }]
       },
@@ -360,63 +299,26 @@
   </script>
 
   <script>
-    // Kích hoạt các tab Bootstrap
-    const triggerTabList = document.querySelectorAll('#pills-tab button');
-    triggerTabList.forEach(triggerEl => {
-      const tabTrigger = new bootstrap.Tab(triggerEl);
-  
-      triggerEl.addEventListener('click', event => {
-        event.preventDefault();
-        tabTrigger.show();
-      });
-    });
-  </script>
-
-  <script>
-    // Khởi tạo biểu đồ khi tab được hiển thị
-    document.addEventListener('DOMContentLoaded', function () {
-      const tabPanes = document.querySelectorAll('.tab-pane');
-  
-      tabPanes.forEach(tabPane => {
-        tabPane.addEventListener('shown.bs.tab', function (event) {
-          const target = event.target.getAttribute('aria-controls');
-  
-          if (target === 'pills-projects') {
-            // Khởi tạo biểu đồ Dự Án
-            const projectsChart = new Chart(document.getElementById('projectsChart'), {
-              type: 'line',
-              data: {
-                labels: ['Dự án 1', 'Dự án 2', 'Dự án 3', 'Dự án 4', 'Dự án 5'],
-                datasets: [{
-                  label: 'Tiến Độ',
-                  data: [80, 90, 70, 85, 95],
-                  borderColor: 'rgba(153, 102, 255, 1)',
-                  borderWidth: 2
-                }]
-              },
-              options: {
-                scales: {
-                  y: {
-                    beginAtZero: true
-                  }
-                }
-              }
-            });
-          } else if (target === 'pills-feedback') {
-            // Khởi tạo biểu đồ Phản Hồi
-            const feedbackChart = new Chart(document.getElementById('feedbackChart'), {
-              type: 'pie',
-              data: {
-                labels: ['Tích Cực', 'Trung Bình', 'Tiêu Cực'],
-                datasets: [{
-                  data: [70, 20, 10],
-                  backgroundColor: ['#4caf50', '#ffc107', '#f44336']
-                }]
-              }
-            });
+    // Khởi tạo biểu đồ cột
+    const barChart = new Chart(document.getElementById('barChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Tuần 1', 'Tuần 2', 'Tuần 3', 'Tuần 4'], // Nhãn trục X
+        datasets: [{
+          label: 'Công việc hoàn thành', // Nhãn dữ liệu
+          data: [12, 19, 3, 5], // Dữ liệu trục Y
+          backgroundColor: 'rgba(75, 192, 192, 0.2)', // Màu nền
+          borderColor: 'rgba(75, 192, 192, 1)', // Màu viền
+          borderWidth: 1 // Độ rộng viền
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true // Bắt đầu trục Y từ 0
           }
-        });
-      });
+        }
+      }
     });
   </script>
 </body>
